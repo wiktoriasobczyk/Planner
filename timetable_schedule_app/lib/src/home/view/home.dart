@@ -1,26 +1,30 @@
 import 'package:flutter/material.dart';
+
 class LoginPage extends StatefulWidget {
   LoginPage({Key key, this.title}) : super(key: key);
   final String title;
   @override
   _LoginPageState createState() => _LoginPageState();
+}
 
-}
 // Used for controlling whether the user is loggin or creating an account
-enum FormType {
-  login,
-  register
-}
+enum FormType { login, register }
+
 class _LoginPageState extends State<LoginPage> {
   final TextEditingController _emailFilter = new TextEditingController();
   final TextEditingController _passwordFilter = new TextEditingController();
+  final TextEditingController _usernameFilter = new TextEditingController();
+  String _username = "";
   String _email = "";
   String _password = "";
-  FormType _form = FormType.login; // our default setting is to login, and we should switch to creating an account when the user chooses to
+
+  FormType _form = FormType
+      .login; // our default setting is to login, and we should switch to creating an account when the user chooses to
 
   _LoginPageState() {
     _emailFilter.addListener(_emailListen);
     _passwordFilter.addListener(_passwordListen);
+    _usernameFilter.addListener(_usernameListen);
   }
 
   void _emailListen() {
@@ -28,6 +32,17 @@ class _LoginPageState extends State<LoginPage> {
       _email = "";
     } else {
       _email = _emailFilter.text;
+      print(_email);
+    }
+  }
+
+  void _usernameListen() {
+    if (_usernameFilter.text.isEmpty) {
+      _username = "";
+      print('pusto w chuj');
+    } else {
+      _username = _usernameFilter.text;
+      print(_username);
     }
   }
 
@@ -40,15 +55,17 @@ class _LoginPageState extends State<LoginPage> {
   }
 
   // Swap in between our two forms, registering and logging in
-  void _formChange () async {
+  void _formChange() async {
     setState(() {
       if (_form == FormType.register) {
         _form = FormType.login;
       } else {
         _form = FormType.register;
+        print('register form');
       }
     });
   }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -68,7 +85,6 @@ class _LoginPageState extends State<LoginPage> {
       ), // This trailing comma makes auto-formatting nicer for build methods.
     );
   }
-
 
   Widget _buildButtons() {
     if (_form == FormType.login) {
@@ -107,43 +123,68 @@ class _LoginPageState extends State<LoginPage> {
       );
     }
   }
+
   Widget _buildTextFields() {
-    return new Container(
-      child: new Column(
-        children: <Widget>[
-          new Container(
-            child: new TextField(
-              controller: _emailFilter,
-              decoration: new InputDecoration(
-                  labelText: 'Email'
+    if (_form == FormType.login) {
+      return new Container(
+        child: new Column(
+          children: <Widget>[
+            new Container(
+              child: new TextField(
+                controller: _emailFilter,
+                decoration: new InputDecoration(labelText: 'Email'),
               ),
             ),
-          ),
-          new Container(
-            child: new TextField(
-              controller: _passwordFilter,
-              decoration: new InputDecoration(
-                  labelText: 'Password'
+            new Container(
+              child: new TextField(
+                controller: _passwordFilter,
+                decoration: new InputDecoration(labelText: 'Password'),
+                obscureText: true,
               ),
-              obscureText: true,
+            )
+          ],
+        ),
+      );
+    } else {
+           print('render register');
+      return new Container(
+        child: new Column(
+          children: <Widget>[
+            new Container(
+              child: new TextField(
+                controller: _usernameFilter,
+                decoration: new InputDecoration(labelText: 'Username^2'),
+              ),
             ),
-          )
-        ],
-      ),
-    );
+            new Container(
+              child: new TextField(
+                controller: _emailFilter,
+                decoration: new InputDecoration(labelText: 'Email'),
+              ),
+            ),
+            new Container(
+              child: new TextField(
+                controller: _passwordFilter,
+                decoration: new InputDecoration(labelText: 'Password'),
+                obscureText: true,
+              ),
+            )
+          ],
+        ),
+      );
+    }
   }
   // These functions can self contain any user auth logic required, they all have access to _email and _password
 
-  void _loginPressed () {
+  void _loginPressed() {
     print('The user wants to login with $_email and $_password');
   }
 
-  void _createAccountPressed () {
+  void _createAccountPressed() {
     print('The user wants to create an accoutn with $_email and $_password');
-
   }
 
-  void _passwordReset () {
+  void _passwordReset() {
     print("The user wants a password reset request sent to $_email");
   }
 }
