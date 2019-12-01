@@ -177,6 +177,7 @@ class _LoginPageState extends State<LoginPage> {
   // These functions can self contain any user auth logic required, they all have access to _email and _password
 
   void _loginPressed() {
+    Navigator.pushNamed(context, '/second');
     print('The user wants to login with $_email and $_password');
   }
 

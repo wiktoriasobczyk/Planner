@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:timetable_schedule_app/src/home/view.dart';
+import 'package:timetable_schedule_app/src/scheduler/view.dart';
 
 void main() => runApp(MyApp());
 
@@ -12,7 +13,10 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.green,
       ),
-      home: LoginPage(title: 'Login home page'),
+      routes:{
+        '/': (context) => LoginPage(title: 'Login home page'),
+        '/second': (context) => SecondScreen(),
+      } 
     );
   }
 }
