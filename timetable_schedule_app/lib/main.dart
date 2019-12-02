@@ -14,7 +14,7 @@ class MyApp extends StatelessWidget {
         primarySwatch: Colors.green,
       ),
       routes:{
-        '/': (context) => LoginPage(title: 'Login home page'),
+        '/': (context) => LoginPage(),
         '/second': (context) => SecondScreen(),
       } 
     );
