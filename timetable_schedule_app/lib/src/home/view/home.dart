@@ -3,7 +3,7 @@ import 'package:flutter_login/flutter_login.dart';
 import 'package:timetable_schedule_app/src/scheduler/view.dart';
 
 const users = const {
-  'dribbble@gmail.com': '12345',
+  'w@w.com': '123',
   'hunter@gmail.com': 'hunter',
 };
 

@@ -1,27 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
-class SecondScreen extends StatelessWidget {
+class SecondScreen extends StatefulWidget {
+  @override
+  _SecondScreenState createState() => _SecondScreenState();
+}
+
+class _SecondScreenState extends State<SecondScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        leading: IconButton(
-            icon: Icon(
-              FontAwesomeIcons.bars,
-              color: Colors.white,
-            ),
-            onPressed: () => {}),
-        title: Text("Plans"),
-        actions: <Widget>[
-          IconButton(icon: Icon(FontAwesomeIcons.coins), onPressed: () {}),
-          IconButton(
-              icon: Icon(FontAwesomeIcons.ellipsisV),
-              onPressed: () {
-                //
-              }),
-        ],
-      ),
       body: Center(
         child: Container(
           height: MediaQuery.of(context).size.height - 60.0,
@@ -31,14 +19,13 @@ class SecondScreen extends StatelessWidget {
               Padding(
                 padding: const EdgeInsets.all(8.0),
                 child: Container(
-                  width: MediaQuery.of(context).size.width ,
+                  width: MediaQuery.of(context).size.width - 16,
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(12.0),
                     color: Color(0xff5a348b),
                     gradient: LinearGradient(
-                        colors: [Color(0xff8d70fe), Color(0xff2da9ef)],
-                        begin: Alignment.centerRight,
-                        end: Alignment(-1.0, -1.0)), //Gradient
+                      colors: [Colors.purpleAccent, Colors.deepPurple],
+                    ), //Gradient
                   ),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.center,
@@ -107,7 +94,6 @@ class SecondScreen extends StatelessWidget {
                                 label: Text('Przedmiot'),
                               ),
                             ],
-                            
                             rows: <DataRow>[
                               DataRow(cells: <DataCell>[
                                 DataCell(
@@ -124,9 +110,7 @@ class SecondScreen extends StatelessWidget {
                                 ),
                               ]),
                               DataRow(cells: <DataCell>[
-                                DataCell(
-                              Text('12:00 - 12:30')
-                                ),
+                                DataCell(Text('12:00 - 12:30')),
                                 DataCell(
                                   Text(
                                     '50',
