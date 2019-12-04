@@ -16,7 +16,7 @@ class _GraphqlTestState extends State<GraphqlTest> {
       body: Query(
         options: QueryOptions(document: r"""
       query GetContinets{
-        continents{
+        countries{
   	      name
         }
       }
@@ -30,12 +30,15 @@ class _GraphqlTestState extends State<GraphqlTest> {
             return Text('no data found');
           }
           print('twoja stara');
-          print(result.data['continents']);
+          print(result.data['countries']);
           return ListView.builder(
             itemBuilder: (BuildContext context, int index) {
-              return Text(result.data['continents'][index]['name']);
+              return ListTile(
+                title: Text(result.data['countries'][index]['name']),
+                onLongPress: () => print('wcisnales' + Text(result.data['countries'][index]['name']).data),
+              );
             },
-            itemCount: result.data['continents'].length,
+            itemCount: result.data['countries'].length,
           );
         },
       ),
