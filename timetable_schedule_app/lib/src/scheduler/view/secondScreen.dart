@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:timetable_schedule_app/src/graphqlTest/controller.dart';
 
 class SecondScreen extends StatefulWidget {
   @override
@@ -17,55 +15,63 @@ class _SecondScreenState extends State<SecondScreen> {
     'sobota',
     'niedziela'
   ];
-  final hours = [
-    '2',
-    '3',
-    '7',
-    '2',
-    '3',
-    '1',
-    '3'
-  ];
+  final hours = ['2', '3', '7', '2', '3', '1', '3'];
   @override
   Widget build(BuildContext context) {
     final screenSize = MediaQuery.of(context).size;
-    return ListView.builder(
-      itemCount: days.length,
-      scrollDirection: Axis.horizontal,
-      shrinkWrap: true,
-      itemBuilder: (context, index) {
-        return Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: Container(
-              width: screenSize.width - 20,
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(12.0),
-                color: Color(0xff5a348b),
-                gradient: LinearGradient(
-                  colors: [Colors.purpleAccent, Colors.deepPurple],
-                ), //Gradient
-              ),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: <Widget>[
-                   Padding(
-                            padding: const EdgeInsets.only(top: 8.0),
-                            child: Container(
-                              child: Text(
-                                days[index],
-                                style: TextStyle(
-                                  color: Colors.white,
-                                  fontSize: 24.0,
-                                  fontWeight: FontWeight.bold,
-                                ),
-                              ),
+    return Scaffold(
+      appBar: AppBar(
+        title: Text('Flutter layout demo'),
+      ),
+      body: Center(
+        child: ListView.builder(
+          itemCount: days.length,
+          scrollDirection: Axis.horizontal,
+          shrinkWrap: true,
+          itemBuilder: (context, index) {
+            return Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Container(
+                  alignment: Alignment.center,
+                  width: screenSize.width - 20,
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(12.0),
+                    color: Color(0xff5a348b),
+                    gradient: LinearGradient(
+                      colors: [Colors.purpleAccent, Colors.deepPurple],
+                    ), //Gradient
+                  ),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: <Widget>[
+                      Padding(
+                        padding: const EdgeInsets.only(top: 8.0),
+                        child: Container(
+                          child: Text(
+                            days[index], // day
+                            style: TextStyle(
+                              color: Colors.white,
+                              fontSize: 24.0,
+                              fontWeight: FontWeight.bold,
                             ),
                           ),
-                ],
-              ),
-            )
-          );
-      },
+                        ),
+                      ),
+                      Container(
+                        child: Text(
+                          'Czas trawnia twoich zajęc',
+                          style: TextStyle(
+                            color: Colors.white54,
+                            fontSize: 20.0,
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                ));
+          },
+        ),
+      ),
     );
   }
 }
