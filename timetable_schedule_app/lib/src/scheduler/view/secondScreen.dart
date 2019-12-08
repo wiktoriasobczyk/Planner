@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:timetable_schedule_app/src/graphqlTest/controller/wrapper.dart';
 
 class SecondScreen extends StatefulWidget {
   @override
@@ -140,13 +141,29 @@ class _SecondScreenState extends State<SecondScreen> {
                                     DataCell(Text('Fizyka')),
                                     DataCell(Text('CTI 102')),
                                   ]),
-                                  DataRow(cells: [
-                                    DataCell(Text('11:00 - 12:00')),
-                                    DataCell(Text('Fizyka')),
-                                    DataCell(Text('CTI 102')),
-                                  ]),
                                 ],
                               ),
+                              //Button
+                          Padding(
+                            padding: const EdgeInsets.only(top: 3.0),
+                            child: RaisedButton(
+                                color: new Color(0xffffffff),
+                                child: Text(
+                                  'Mockup danych',
+                                  style: TextStyle(
+                                    color: new Color(0xff6200ee),
+                                  ),
+                                ),
+                                onPressed: () {
+                                  Navigator.of(context)
+                                      .pushReplacement(MaterialPageRoute(
+                                    builder: (context) => Wrapper(),
+                                  ));
+                                },
+                                shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(30.0),
+                                )),
+                          ),
                             ])
                       ],
                     ),
