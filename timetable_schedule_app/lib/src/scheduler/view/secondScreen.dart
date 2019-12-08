@@ -16,12 +16,13 @@ class _SecondScreenState extends State<SecondScreen> {
     'niedziela'
   ];
   final hours = ['2', '3', '7', '2', '3', '1', '3'];
+  final dayColor = [Colors.green[200], Colors.blueGrey[100],Colors.green[200], Colors.blueGrey[100],Colors.green[200], Colors.blueGrey[100],Colors.green[200], Colors.blueGrey[100]];
   @override
   Widget build(BuildContext context) {
     final screenSize = MediaQuery.of(context).size;
     return Scaffold(
       appBar: AppBar(
-        title: Text('Flutter layout demo'),
+        title: Text('Plan tygodnia'),
       ),
       body: Center(
         child: ListView.builder(
@@ -36,10 +37,7 @@ class _SecondScreenState extends State<SecondScreen> {
                   width: screenSize.width - 20,
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(12.0),
-                    color: Color(0xff5a348b),
-                    gradient: LinearGradient(
-                      colors: [Colors.purpleAccent, Colors.deepPurple],
-                    ), //Gradient
+                    color: dayColor[index]
                   ),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.center,
