@@ -44,28 +44,32 @@ class _SecondScreenState extends State<SecondScreen> {
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: <Widget>[
-                      Padding(
-                        padding: const EdgeInsets.only(top: 8.0),
-                        child: Container(
-                          child: Text(
-                            days[index], // day
-                            style: TextStyle(
-                              color: Colors.white,
-                              fontSize: 24.0,
-                              fontWeight: FontWeight.bold,
+                      Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: <Widget>[
+                            Padding(
+                              padding: const EdgeInsets.only(top: 8.0),
+                              child: Container(
+                                child: Text(
+                                  days[index], // day
+                                  style: TextStyle(
+                                    color: Colors.white,
+                                    fontSize: 24.0,
+                                    fontWeight: FontWeight.bold,
+                                  ),
+                                ),
+                              ),
                             ),
-                          ),
-                        ),
-                      ),
-                      Container(
-                        child: Text(
-                          'Czas trawnia twoich zajęc',
-                          style: TextStyle(
-                            color: Colors.white54,
-                            fontSize: 20.0,
-                          ),
-                        ),
-                      ),
+                            Container(
+                              child: Text(
+                                'Czas trawnia twoich zajęc',
+                                style: TextStyle(
+                                  color: Colors.white54,
+                                  fontSize: 20.0,
+                                ),
+                              ),
+                            ),
+                          ])
                     ],
                   ),
                 ));
