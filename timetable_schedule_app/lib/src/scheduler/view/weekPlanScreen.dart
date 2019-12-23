@@ -1,13 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 // import 'package:timetable_schedule_app/src/graphqlTest/controller.dart';
 
-class SecondScreen extends StatefulWidget {
+class WeekPlanScreen extends StatefulWidget {
   @override
-  _SecondScreenState createState() => _SecondScreenState();
+  _WeekPlanScreenState createState() => _WeekPlanScreenState();
 }
 
-class _SecondScreenState extends State<SecondScreen> {
+class _WeekPlanScreenState extends State<WeekPlanScreen> {
   final days = [
     'PONIEDZIAŁEK',
     'WTOREK',
@@ -30,7 +29,6 @@ class _SecondScreenState extends State<SecondScreen> {
   ];
   @override
   Widget build(BuildContext context) {
-    final screenSize = MediaQuery.of(context).size;
     return Scaffold(
       appBar: AppBar(
         title: Text('Plan tygodnia'),
@@ -158,7 +156,7 @@ class _SecondScreenState extends State<SecondScreen> {
                                 onPressed: () {
                                   Navigator.of(context)
                                       .pushReplacement(MaterialPageRoute(
-                                    builder: (context) => SecondScreen(),
+                                    builder: (context) => WeekPlanScreen(),
                                   ));
                                 },
                                 shape: RoundedRectangleBorder(

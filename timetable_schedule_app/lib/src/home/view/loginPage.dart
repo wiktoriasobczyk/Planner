@@ -40,7 +40,7 @@ class LoginPage extends StatelessWidget {
       onSignup: _authUser,
       onSubmitAnimationCompleted: () {
         Navigator.of(context).pushReplacement(MaterialPageRoute(
-          builder: (context) => SecondScreen(),
+          builder: (context) => WeekPlanScreen(),
         ));
       },
       emailValidator: (value) {
