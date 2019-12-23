@@ -7,7 +7,7 @@ const users = const {
   'hunter@gmail.com': 'hunter',
 };
 
-class LoginPage extends StatelessWidget {
+class LoginScreen extends StatelessWidget {
   Duration get loginTime => Duration(milliseconds: 2250);
   Future<String> _authUser(LoginData data) {
     print('Name: ${data.name}, Password: ${data.password}');
