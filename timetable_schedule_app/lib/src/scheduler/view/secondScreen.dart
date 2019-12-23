@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:timetable_schedule_app/src/graphqlTest/controller/wrapper.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+// import 'package:timetable_schedule_app/src/graphqlTest/controller.dart';
 
 class SecondScreen extends StatefulWidget {
   @override
@@ -157,7 +158,7 @@ class _SecondScreenState extends State<SecondScreen> {
                                 onPressed: () {
                                   Navigator.of(context)
                                       .pushReplacement(MaterialPageRoute(
-                                    builder: (context) => Wrapper(),
+                                    builder: (context) => SecondScreen(),
                                   ));
                                 },
                                 shape: RoundedRectangleBorder(
