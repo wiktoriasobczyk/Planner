@@ -39,9 +39,12 @@ class LoginPage extends StatelessWidget {
       onLogin: _authUser,
       onSignup: _authUser,
       onSubmitAnimationCompleted: () {
-        Navigator.of(context).pushReplacement(MaterialPageRoute(
-          builder: (context) => WeekPlanScreen(),
-        ));
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (BuildContext context) => WeekPlanScreen(),
+            ),
+         );
       },
       emailValidator: (value) {
         if (!value.contains('@') || !value.endsWith('.com')) {

@@ -1,1 +1,1 @@
-export 'package:timetable_schedule_app/src/scheduler/view/weekPlanScreen.dart';
+export 'package:timetable_schedule_app/src/weekScreen/view/weekPlanScreen.dart';
