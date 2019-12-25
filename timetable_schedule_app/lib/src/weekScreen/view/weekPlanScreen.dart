@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 // import 'package:timetable_schedule_app/src/graphqlTest/controller.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+// import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:timetable_schedule_app/src/drawer/view.dart';
 
 class WeekPlanScreen extends StatefulWidget {
