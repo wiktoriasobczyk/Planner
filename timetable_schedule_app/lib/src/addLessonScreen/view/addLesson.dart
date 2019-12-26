@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:timetable_schedule_app/src/addLessonScreen/model/lesson.dart';
+import 'package:timetable_schedule_app/src/addLessonScreen/view.dart';
 import 'package:timetable_schedule_app/src/addLessonScreen/view/simple_form_field.dart';
 import 'package:timetable_schedule_app/src/addLessonScreen/view/time_form_field.dart';
 import 'package:timetable_schedule_app/src/drawer/view/drawerApp.dart';
@@ -40,20 +41,6 @@ class _AddLessonScreenState extends State<AddLessonScreen> {
               },
             )),
             Divider(),
-            ListTile(
-                title: SimpleTextForm(
-              labelText: 'Miejsce',
-              validator: (String value) {
-                if (value.isEmpty) {
-                  return 'Wpisz miejsce wydarzenia';
-                }
-                return null;
-              },
-              onSaved: (String value) {
-                lesson.place = value;
-              },
-            )),
-            Divider(),
             TimeField(
               labelText: 'Godzina rozpoczęcia',
               validator: (DateTime value) {
@@ -79,6 +66,47 @@ class _AddLessonScreenState extends State<AddLessonScreen> {
                 lesson.endingHour = value;
               },
             ),
+            Divider(),
+            DateField(
+              labelText: 'Data zajęć',
+              validator: (DateTime value) {
+                if (value == null) {
+                  return 'Wpisz date wydarzenia';
+                }
+                return null;
+              },
+              onSaved: (DateTime value) {
+                lesson.date = value;
+              },
+            ),
+            Divider(),
+            ListTile(
+                title: SimpleTextForm(
+              labelText: 'Prowadzący',
+              validator: (String value) {
+                if (value.isEmpty) {
+                  return 'Wpisz prowadzącego zajęcia';
+                }
+                return null;
+              },
+              onSaved: (String value) {
+                lesson.teacher = value;
+              },
+            )),
+                      Divider(),
+            ListTile(
+                title: SimpleTextForm(
+              labelText: 'Miejsce',
+              validator: (String value) {
+                if (value.isEmpty) {
+                  return 'Wpisz miejsce wydarzenia';
+                }
+                return null;
+              },
+              onSaved: (String value) {
+                lesson.place = value;
+              },
+            )),
             ListTile(
               title: RaisedButton(
                 child: Text('SEND'),
@@ -88,6 +116,8 @@ class _AddLessonScreenState extends State<AddLessonScreen> {
                     print(this.lesson.name);
                     print(this.lesson.place);
                     print(this.lesson.beginHour);
+                    print(this.lesson.teacher);
+                    print(this.lesson.date);
                   }
                 },
               ),

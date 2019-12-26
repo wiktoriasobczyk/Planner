@@ -1,6 +1,6 @@
 class Lesson {
   String name;
-  String date;
+  DateTime date;
   DateTime beginHour;
   DateTime endingHour;
   String teacher;
