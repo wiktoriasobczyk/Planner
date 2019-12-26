@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:timetable_schedule_app/src/drawer/view/drawerApp.dart';
-
+import 'package:datetime_picker_formfield/datetime_picker_formfield.dart';
 
 class AddLessonScreen extends StatefulWidget {
   @override
@@ -28,10 +28,29 @@ class _AddLessonScreenState extends State<AddLessonScreen> {
           child: Column(children: <Widget>[
             ListTile(
               title: TextFormField(
-                onSaved: (value) => name = value,
-                decoration: InputDecoration(
-                  labelText: 'name',
+                               decoration: InputDecoration(
+                  labelText: 'Nazwa',
                   labelStyle: TextStyle(fontWeight: FontWeight.bold),
+                  enabledBorder: OutlineInputBorder(
+                    borderSide: BorderSide(
+                      color: Colors.green,
+                      width: 1.5,
+                      style: BorderStyle.solid,
+                    ),
+                    borderRadius: BorderRadius.all(
+                      Radius.circular(15.0),
+                    ),
+                  ),
+                  focusedBorder:  OutlineInputBorder(
+                    borderSide: BorderSide(
+                      color: Colors.green,
+                      width: 1.5,
+                      style: BorderStyle.solid,
+                    ),
+                    borderRadius: BorderRadius.all(
+                      Radius.circular(15.0),
+                    ),
+                  ),
                 ),
               ),
             ),
@@ -39,20 +58,29 @@ class _AddLessonScreenState extends State<AddLessonScreen> {
               title: TextFormField(
                 onSaved: (value) => date = value,
                 decoration: InputDecoration(
-                  labelText: 'date',
+                  labelText: 'Data',
                   labelStyle: TextStyle(fontWeight: FontWeight.bold),
+                  enabledBorder: OutlineInputBorder(
+                    borderSide: BorderSide(
+                      color: Colors.green,
+                      width: 1.5,
+                      style: BorderStyle.solid,
+                    ),
+                    borderRadius: BorderRadius.all(
+                      Radius.circular(15.0),
+                    ),
+                  ),
+                  focusedBorder:  OutlineInputBorder(
+                    borderSide: BorderSide(
+                      color: Colors.green,
+                      width: 1.5,
+                      style: BorderStyle.solid,
+                    ),
+                    borderRadius: BorderRadius.all(
+                      Radius.circular(15.0),
+                    ),
+                  ),
                 ),
-              ),
-            ),
-            Divider(),
-            ListTile(
-              title: TextFormField(
-                onSaved: (value) => beginHour = value,
-                decoration: InputDecoration(
-                  labelText: 'beginHour',
-                  labelStyle: TextStyle(fontWeight: FontWeight.bold),
-                ),
-                maxLines: 9,
               ),
             ),
             ListTile(
@@ -60,7 +88,8 @@ class _AddLessonScreenState extends State<AddLessonScreen> {
                 child: Text('SEND'),
                 onPressed: () {
                   this.key.currentState.save();
-
+                  print('wpisana data' + date);
+                  print('wpisana nazwa' + name);
                   // Message message = Message(subject, body);
 
                   // Navigator.pop(context, message);
