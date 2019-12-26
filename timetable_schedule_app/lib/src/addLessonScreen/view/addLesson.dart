@@ -3,6 +3,7 @@ import 'package:timetable_schedule_app/src/addLessonScreen/model/lesson.dart';
 import 'package:timetable_schedule_app/src/addLessonScreen/view.dart';
 import 'package:timetable_schedule_app/src/addLessonScreen/view/simple_form_field.dart';
 import 'package:timetable_schedule_app/src/addLessonScreen/view/time_form_field.dart';
+import 'package:timetable_schedule_app/src/common/green_button.dart';
 import 'package:timetable_schedule_app/src/drawer/view/drawerApp.dart';
 
 import 'package:intl/intl.dart';
@@ -108,8 +109,8 @@ class _AddLessonScreenState extends State<AddLessonScreen> {
               },
             )),
             ListTile(
-              title: RaisedButton(
-                child: Text('SEND'),
+              title: GreenButton(
+                labelText: 'DODAJ',
                 onPressed: () {
                   if (_formKey.currentState.validate()) {
                     _formKey.currentState.save();
