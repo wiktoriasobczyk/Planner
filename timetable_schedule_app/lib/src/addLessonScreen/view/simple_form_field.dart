@@ -27,6 +27,16 @@ class SimpleTextForm extends StatelessWidget {
             Radius.circular(15.0),
           ),
         ),
+        errorBorder: OutlineInputBorder(
+          borderSide: BorderSide(
+            color: Colors.red,
+            width: 1.5,
+            style: BorderStyle.solid,
+          ),
+          borderRadius: BorderRadius.all(
+            Radius.circular(15.0),
+          ),
+        ),
         focusedBorder: OutlineInputBorder(
           borderSide: BorderSide(
             color: Colors.green,

@@ -1,8 +1,8 @@
 class Lesson {
   String name;
   String date;
-  String beginHour;
-  String endingHour;
+  DateTime beginHour;
+  DateTime endingHour;
   String teacher;
   String place;
 

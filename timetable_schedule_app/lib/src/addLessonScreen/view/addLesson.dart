@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:timetable_schedule_app/src/addLessonScreen/model/lesson.dart';
 import 'package:timetable_schedule_app/src/addLessonScreen/view/simple_form_field.dart';
+import 'package:timetable_schedule_app/src/addLessonScreen/view/time_form_field.dart';
 import 'package:timetable_schedule_app/src/drawer/view/drawerApp.dart';
-// import 'package:datetime_picker_formfield/datetime_picker_formfield.dart';
+
 import 'package:intl/intl.dart';
 
 class AddLessonScreen extends StatefulWidget {
@@ -26,7 +27,7 @@ class _AddLessonScreenState extends State<AddLessonScreen> {
           key: _formKey,
           child: Column(children: <Widget>[
             ListTile(
-                title: SimpleTextForm(
+              title: SimpleTextForm(
               labelText: 'Nazwa',
               validator: (String value) {
                 if (value.isEmpty) {
@@ -53,44 +54,31 @@ class _AddLessonScreenState extends State<AddLessonScreen> {
               },
             )),
             Divider(),
-            // ListTile(
-            //   title: DateTimeField(
-            //     decoration: InputDecoration(
-            //       labelText: 'Data',
-            //       labelStyle: TextStyle(fontWeight: FontWeight.bold),
-            //       enabledBorder: OutlineInputBorder(
-            //         borderSide: BorderSide(
-            //           color: Colors.green,
-            //           width: 1.5,
-            //           style: BorderStyle.solid,
-            //         ),
-            //         borderRadius: BorderRadius.all(
-            //           Radius.circular(15.0),
-            //         ),
-            //       ),
-            //       focusedBorder: OutlineInputBorder(
-            //         borderSide: BorderSide(
-            //           color: Colors.green,
-            //           width: 1.5,
-            //           style: BorderStyle.solid,
-            //         ),
-            //         borderRadius: BorderRadius.all(
-            //           Radius.circular(15.0),
-            //         ),
-            //       ),
-            //     ),
-            //     format: timeFormat,
-            //     onShowPicker: (context, currentValue) async {
-            //       final time = await showTimePicker(
-            //         context: context,
-            //         initialTime:
-            //             TimeOfDay.fromDateTime(currentValue ?? DateTime.now()),
-            //       );
-            //       beginHour = DateTimeField.convert(time).toString();
-            //       return DateTimeField.convert(time);
-            //     },
-            //   ),
-            // ),
+            TimeField(
+              labelText: 'Godzina rozpoczęcia',
+              validator: (DateTime value) {
+                if (value == null) {
+                  return 'Wpisz godzine rozpoczęcia wydarzenia';
+                }
+                return null;
+              },
+              onSaved: (DateTime value) {
+                lesson.beginHour = value;
+              },
+            ),
+            Divider(),
+            TimeField(
+              labelText: 'Godzina zakończenia',
+              validator: (DateTime value) {
+                if (value == null) {
+                  return 'Wpisz godzine zakończenia wydarzenia';
+                }
+                return null;
+              },
+              onSaved: (DateTime value) {
+                lesson.endingHour = value;
+              },
+            ),
             ListTile(
               title: RaisedButton(
                 child: Text('SEND'),
@@ -99,6 +87,7 @@ class _AddLessonScreenState extends State<AddLessonScreen> {
                     _formKey.currentState.save();
                     print(this.lesson.name);
                     print(this.lesson.place);
+                    print(this.lesson.beginHour);
                   }
                 },
               ),
