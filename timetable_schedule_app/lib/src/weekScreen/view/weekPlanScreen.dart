@@ -157,7 +157,7 @@ class _WeekPlanScreenState extends State<WeekPlanScreen> {
                                       context,
                                       MaterialPageRoute(
                                         builder: (BuildContext context) =>
-                                            GraphQLWrapper(),
+                                            GraphQLWrapper(), 
                                       ),
                                     );
                                   },
