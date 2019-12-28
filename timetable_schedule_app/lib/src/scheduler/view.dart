@@ -1,1 +1,0 @@
-export 'package:timetable_schedule_app/src/scheduler/view/secondScreen.dart';

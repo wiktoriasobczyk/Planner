@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_login/flutter_login.dart';
-import 'package:timetable_schedule_app/src/scheduler/view.dart';
+import 'package:timetable_schedule_app/src/weekScreen/view.dart';
 
 const users = const {
   'w@w.com': '123',
   'hunter@gmail.com': 'hunter',
 };
 
-class LoginPage extends StatelessWidget {
+class LoginScreen extends StatelessWidget {
   Duration get loginTime => Duration(milliseconds: 2250);
   Future<String> _authUser(LoginData data) {
     print('Name: ${data.name}, Password: ${data.password}');
@@ -39,9 +39,12 @@ class LoginPage extends StatelessWidget {
       onLogin: _authUser,
       onSignup: _authUser,
       onSubmitAnimationCompleted: () {
-        Navigator.of(context).pushReplacement(MaterialPageRoute(
-          builder: (context) => SecondScreen(),
-        ));
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (BuildContext context) => WeekPlanScreen(),
+            ),
+         );
       },
       emailValidator: (value) {
         if (!value.contains('@') || !value.endsWith('.com')) {
