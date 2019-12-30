@@ -6,7 +6,7 @@ import 'graphql_test.dart';
 
 class GraphQLWrapper extends StatelessWidget {
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context) {  
     final HttpLink httpLink =
         HttpLink(uri: 'https://countries.trevorblades.com/');
     final ValueNotifier<GraphQLClient> client = ValueNotifier<GraphQLClient>(

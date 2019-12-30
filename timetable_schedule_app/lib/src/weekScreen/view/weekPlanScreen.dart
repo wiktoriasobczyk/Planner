@@ -152,6 +152,7 @@ class _WeekPlanScreenState extends State<WeekPlanScreen> {
                                 child: GreenButton(
                                   labelText: 'Mockup',
                                   onPressed: () {
+
                                     Navigator.pop(context);
                                     Navigator.push(
                                       context,
