@@ -3,7 +3,8 @@ import 'package:timetable_schedule_app/src/common/green_button.dart';
 // import 'package:timetable_schedule_app/src/graphqlTest/controller.dart';
 // import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:timetable_schedule_app/src/drawer/view.dart';
-import 'package:timetable_schedule_app/src/graphql-test/graphql_wrapper.dart';
+import 'package:timetable_schedule_app/src/graphql-test/graphql_test.dart';
+
 
 class WeekPlanScreen extends StatefulWidget {
   @override
@@ -158,7 +159,7 @@ class _WeekPlanScreenState extends State<WeekPlanScreen> {
                                       context,
                                       MaterialPageRoute(
                                         builder: (BuildContext context) =>
-                                            GraphQLWrapper(), 
+                                            GraphqlTest(), 
                                       ),
                                     );
                                   },

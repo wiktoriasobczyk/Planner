@@ -22,21 +22,6 @@ class _DrawerState extends State<DrawerApp> {
               backgroundImage: NetworkImage(
                   "https://icons-for-free.com/iconfiles/png/512/female+person+user+woman+young+icon-1320196266256009072.png"),
             ),
-            otherAccountsPictures: <Widget>[
-              GestureDetector(
-                onTap: () {
-                  showDialog(
-                      context: context,
-                      builder: (context) {
-                        return AlertDialog(
-                            title: Text("Adding new account..."));
-                      });
-                },
-                child: CircleAvatar(
-                  child: Icon(Icons.add),
-                ),
-              )
-            ],
           ),
           ListTile(
             leading: Icon(FontAwesomeIcons.clipboardList),
