@@ -3,7 +3,7 @@ import 'package:timetable_schedule_app/src/common/green_button.dart';
 // import 'package:timetable_schedule_app/src/graphqlTest/controller.dart';
 // import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:timetable_schedule_app/src/drawer/view.dart';
-import 'package:timetable_schedule_app/src/graphql-test/graphql_test.dart';
+import 'package:timetable_schedule_app/src/graphql-test/view/graphql_test.dart';
 
 
 class WeekPlanScreen extends StatefulWidget {
