@@ -16,16 +16,9 @@ class WeekPlanScreen extends StatefulWidget {
 class _WeekPlanScreenState extends State<WeekPlanScreen> {
   CountryController ctrl = new CountryController();
   Future<List<Country>> countries;
-  final days = [
-    'PN',
-    'WT',
-    'ŚR',
-    'CZW',
-    'PT',
-    'SOBOTA',
-    'NIEDZIELA'
-  ];
-  int bottomNavBarIndex = 0;
+  final days = ['Poniedziałek', 'WT', 'ŚR', 'CZW', 'PT', 'SOBOTA', 'NIEDZIELA'];
+  int bottomNavBarIndex;
+  String selectedDay;
   final hours = ['2', '3', '7', '2', '3', '1', '3'];
   final dayColor = [
     Colors.green[200],
@@ -41,18 +34,41 @@ class _WeekPlanScreenState extends State<WeekPlanScreen> {
   @override
   void initState() {
     super.initState();
+    selectedDay = days[0];
+    bottomNavBarIndex = 0;
     countries = ctrl.getCountriesList();
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text('Plan tygodnia'),
-      ),
       drawer: DrawerApp(),
       body: CustomScrollView(
         slivers: <Widget>[
+          const SliverAppBar(
+            expandedHeight: 100.0,
+            pinned: true,
+            flexibleSpace: FlexibleSpaceBar(
+              title: Text('Plan tygodnia'),
+            ),
+          ),
+          SliverToBoxAdapter(
+           child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: <Widget>[
+                      Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: <Widget>[
+                            Container(
+                              width: 150.0,
+                              height: 130.0,
+                              decoration: new BoxDecoration(
+                                shape: BoxShape.circle,
+                                color: Colors.red,
+                        )),
+                          ])]
+           ),
+          ),
           SliverFillRemaining(
             child: FutureBuilder(
               future: countries,
@@ -71,7 +87,6 @@ class _WeekPlanScreenState extends State<WeekPlanScreen> {
                       separatorBuilder: (context, index) => Divider(),
                       itemBuilder: (BuildContext context, int index) {
                         Country message = countries[index];
-
                         return ListTile(
                           title: Text(message.name),
                           isThreeLine: true,
@@ -96,20 +111,41 @@ class _WeekPlanScreenState extends State<WeekPlanScreen> {
         currentIndex: bottomNavBarIndex,
         onTap: (int index) {
           setState(() {
-              bottomNavBarIndex = index;
+            bottomNavBarIndex = index;
+            // selectedDay = (days[index])
           });
         },
         items: [
           new BottomNavigationBarItem(
-              icon: Icon(FontAwesomeIcons.calendarDay,  color: Colors.green.shade200,), title: Text(days[0],style: TextStyle(color: Colors.black))),
+              icon: Icon(
+                FontAwesomeIcons.calendarDay,
+                color: Colors.green.shade200,
+              ),
+              title: Text(days[0], style: TextStyle(color: Colors.black))),
           new BottomNavigationBarItem(
-              icon: Icon(FontAwesomeIcons.calendarDay, color: Colors.green.shade200,), title: Text(days[1],style: TextStyle(color: Colors.black))),
+              icon: Icon(
+                FontAwesomeIcons.calendarDay,
+                color: Colors.green.shade200,
+              ),
+              title: Text(days[1], style: TextStyle(color: Colors.black))),
           new BottomNavigationBarItem(
-              icon: Icon(FontAwesomeIcons.calendarDay, color: Colors.green.shade200,), title: Text(days[2],style: TextStyle(color: Colors.black))),
+              icon: Icon(
+                FontAwesomeIcons.calendarDay,
+                color: Colors.green.shade200,
+              ),
+              title: Text(days[2], style: TextStyle(color: Colors.black))),
           new BottomNavigationBarItem(
-              icon: Icon(FontAwesomeIcons.calendarDay, color: Colors.green.shade200,), title: Text(days[3],style: TextStyle(color: Colors.black))),
+              icon: Icon(
+                FontAwesomeIcons.calendarDay,
+                color: Colors.green.shade200,
+              ),
+              title: Text(days[3], style: TextStyle(color: Colors.black))),
           new BottomNavigationBarItem(
-              icon: Icon(FontAwesomeIcons.calendarDay,   color: Colors.green.shade200,), title: Text(days[4],style: TextStyle(color: Colors.black))),
+              icon: Icon(
+                FontAwesomeIcons.calendarDay,
+                color: Colors.green.shade200,
+              ),
+              title: Text(days[4], style: TextStyle(color: Colors.black))),
         ],
       ),
     );
