@@ -10,12 +10,12 @@ class GraphqlTest extends StatefulWidget {
 class _GraphqlTestState extends State<GraphqlTest> {
   CountryController ctrl = new CountryController();
   QueriesMutations queries = QueriesMutations();
-  @override
-  void initState() {
-    super.initState();
-    print('xd'); 
-    print(ctrl.getCountriesList()); 
-  }
+    @override
+    void initState() {
+      super.initState();
+      print('xd'); 
+      print(ctrl.getCountriesList()); 
+    }
 
   @override
   Widget build(BuildContext context) {

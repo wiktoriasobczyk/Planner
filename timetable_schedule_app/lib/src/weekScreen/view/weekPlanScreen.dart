@@ -3,8 +3,9 @@ import 'package:timetable_schedule_app/src/common/green_button.dart';
 // import 'package:timetable_schedule_app/src/graphqlTest/controller.dart';
 // import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:timetable_schedule_app/src/drawer/view.dart';
+import 'package:timetable_schedule_app/src/graphql-test/controller/country-controller.dart';
+import 'package:timetable_schedule_app/src/graphql-test/model/country.dart';
 import 'package:timetable_schedule_app/src/graphql-test/view/graphql_test.dart';
-
 
 class WeekPlanScreen extends StatefulWidget {
   @override
@@ -12,6 +13,8 @@ class WeekPlanScreen extends StatefulWidget {
 }
 
 class _WeekPlanScreenState extends State<WeekPlanScreen> {
+  CountryController ctrl = new CountryController();
+  Future<List<Country>> countries;
   final days = [
     'PONIEDZIAŁEK',
     'WTOREK',
@@ -32,6 +35,13 @@ class _WeekPlanScreenState extends State<WeekPlanScreen> {
     Colors.green[200],
     Colors.blueGrey[100]
   ];
+
+  @override
+  void initState() {
+    super.initState();
+    countries = ctrl.getCountriesList();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -108,58 +118,94 @@ class _WeekPlanScreenState extends State<WeekPlanScreen> {
                                       ],
                                     )),
                               ),
-                              DataTable(
-                                columns: [
-                                  DataColumn(label: Text('Godzina')),
-                                  DataColumn(label: Text('Przedmiot')),
-                                  DataColumn(label: Text('Miejsce')),
-                                ],
-                                rows: [
-                                  DataRow(cells: [
-                                    DataCell(Text('8:00 - 10:00')),
-                                    DataCell(Text('Seminarium')),
-                                    DataCell(Text('PŁ')),
-                                  ]),
-                                  DataRow(cells: [
-                                    DataCell(Text('11:00 - 12:00')),
-                                    DataCell(Text('Fizyka')),
-                                    DataCell(Text('CTI 102')),
-                                  ]),
-                                  DataRow(cells: [
-                                    DataCell(Text('11:00 - 12:00')),
-                                    DataCell(Text('Fizyka')),
-                                    DataCell(Text('CTI 102')),
-                                  ]),
-                                  DataRow(cells: [
-                                    DataCell(Text('11:00 - 12:00')),
-                                    DataCell(Text('Fizyka')),
-                                    DataCell(Text('CTI 102')),
-                                  ]),
-                                  DataRow(cells: [
-                                    DataCell(Text('11:00 - 12:00')),
-                                    DataCell(Text('Fizyka')),
-                                    DataCell(Text('CTI 102')),
-                                  ]),
-                                  DataRow(cells: [
-                                    DataCell(Text('11:00 - 12:00')),
-                                    DataCell(Text('Fizyka')),
-                                    DataCell(Text('CTI 102')),
-                                  ]),
-                                ],
-                              ),
-                              //Button
+                              FutureBuilder(
+                                  future: countries,
+                                  builder: (BuildContext context,
+                                      AsyncSnapshot snapshot) {
+                                    switch (snapshot.connectionState) {
+                                      case ConnectionState.none:
+                                      case ConnectionState.waiting:
+                                      case ConnectionState.active:
+                                        return Center(
+                                            child: CircularProgressIndicator());
+                                      case ConnectionState.done:
+                                        if (snapshot.hasError)
+                                          return Text(
+                                              "There was an error: ${snapshot.error}");
+                                        return ListView.builder(
+                                          itemCount: 2,
+                                          itemBuilder: (BuildContext context,
+                                              int index) {
+                                            DataTable(columns: [
+                                              DataColumn(
+                                                  label: Text('Godzina')),
+                                              DataColumn(
+                                                  label: Text('Przedmiot')),
+                                              DataColumn(
+                                                  label: Text('Miejsce')),
+                                            ], rows: [
+                                              DataRow(cells: [
+                                                DataCell(Text('8:00 - 10:00')),
+                                                DataCell(Text('Seminarium')),
+                                                DataCell(Text('PŁ')),
+                                              ])
+                                            ]);
+                                          },
+                                        );
+                                    }
+                                  }),
+                              // DataTable(
+                              //   columns: [
+                              //     DataColumn(label: Text('Godzina')),
+                              //     DataColumn(label: Text('Przedmiot')),
+                              //     DataColumn(label: Text('Miejsce')),
+                              //   ],
+                              //   rows:
+                              //    [
+                              //     DataRow(cells: [
+                              //       DataCell(Text('8:00 - 10:00')),
+                              //       DataCell(Text('Seminarium')),
+                              //       DataCell(Text('PŁ')),
+                              //     ]),
+                              //     DataRow(cells: [
+                              //       DataCell(Text('11:00 - 12:00')),
+                              //       DataCell(Text('Fizyka')),
+                              //       DataCell(Text('CTI 102')),
+                              //     ]),
+                              //     DataRow(cells: [
+                              //       DataCell(Text('11:00 - 12:00')),
+                              //       DataCell(Text('Fizyka')),
+                              //       DataCell(Text('CTI 102')),
+                              //     ]),
+                              //     DataRow(cells: [
+                              //       DataCell(Text('11:00 - 12:00')),
+                              //       DataCell(Text('Fizyka')),
+                              //       DataCell(Text('CTI 102')),
+                              //     ]),
+                              //     DataRow(cells: [
+                              //       DataCell(Text('11:00 - 12:00')),
+                              //       DataCell(Text('Fizyka')),
+                              //       DataCell(Text('CTI 102')),
+                              //     ]),
+                              //     DataRow(cells: [
+                              //       DataCell(Text('11:00 - 12:00')),
+                              //       DataCell(Text('Fizyka')),
+                              //       DataCell(Text('CTI 102')),
+                              //     ]),
+                              //   ],
+                              // ),
+                              // //Button
                               Padding(
                                 padding: const EdgeInsets.only(top: 3.0),
                                 child: GreenButton(
                                   labelText: 'Mockup',
                                   onPressed: () {
-
                                     Navigator.pop(context);
                                     Navigator.push(
                                       context,
                                       MaterialPageRoute(
                                         builder: (BuildContext context) =>
-                                            GraphqlTest(), 
+                                            GraphqlTest(),
                                       ),
                                     );
                                   },
