@@ -49,8 +49,10 @@ class _WeekPlanScreenState extends State<WeekPlanScreen> {
         title: Text('Plan tygodnia'),
       ),
       drawer: DrawerApp(),
-     body: 
-          FutureBuilder(
+     body: CustomScrollView(
+       slivers: <Widget>[
+         SliverFillRemaining(
+          child: FutureBuilder(
           future: countries,
           builder: (BuildContext context, AsyncSnapshot snapshot) {
             switch (snapshot.connectionState) {
@@ -84,7 +86,12 @@ class _WeekPlanScreenState extends State<WeekPlanScreen> {
                 );
             }
           },
-        ));
+        ),
+         )
+       ],
+     )
+     );
+         
  
     // body: Center(
     //   child: ListView.builder(
