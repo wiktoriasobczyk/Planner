@@ -52,77 +52,75 @@ class _WeekPlanScreenState extends State<WeekPlanScreen> {
           ),
         ),
         SliverToBoxAdapter(
-          child: Padding(
-              padding: const EdgeInsets.all(5.0),
-              child: Wrap(alignment: WrapAlignment.center, children: [
-                Container(
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(5.0),
-                    color: dayColor[bottomNavBarIndex],
-                  ),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: <Widget>[
-                      Column(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: <Widget>[
-                            Padding(
-                              padding: const EdgeInsets.only(top: 8.0),
-                              child: Container(
+            child: Padding(
+                padding: const EdgeInsets.all(5.0),
+                child: Wrap(alignment: WrapAlignment.center, children: [
+                  Container(
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(5.0),
+                      color: dayColor[bottomNavBarIndex],
+                    ),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: <Widget>[
+                        Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: <Widget>[
+                              Padding(
+                                padding: const EdgeInsets.only(top: 8.0),
+                                child: Container(
+                                  child: Text(
+                                    days[bottomNavBarIndex], // day
+                                    style: TextStyle(
+                                      color: Colors.white,
+                                      fontSize: 24.0,
+                                      fontWeight: FontWeight.bold,
+                                    ),
+                                  ),
+                                ),
+                              ),
+                              Container(
                                 child: Text(
-                                  days[bottomNavBarIndex], // day
+                                  'Czas trawnia twoich zajęc',
                                   style: TextStyle(
-                                    color: Colors.white,
-                                    fontSize: 24.0,
-                                    fontWeight: FontWeight.bold,
+                                    color: Colors.white54,
+                                    fontSize: 20.0,
                                   ),
                                 ),
                               ),
-                            ),
-                            Container(
-                              child: Text(
-                                'Czas trawnia twoich zajęc',
-                                style: TextStyle(
-                                  color: Colors.white54,
-                                  fontSize: 20.0,
-                                ),
-                              ),
-                            ),
-                            Padding(
-                              padding: const EdgeInsets.only(top: 10.0,bottom: 10.0),
-                              child: Container(
-                                  width: 150.0,
-                                  height: 130.0,
-                                  decoration: new BoxDecoration(
-                                    shape: BoxShape.circle,
-                                    color: Colors.white,
-                                  ),
-                                  child: Column(
-                                    mainAxisAlignment:
-                                        MainAxisAlignment.center,
-                                    children: <Widget>[
-                                      Container(
-                                        child: Text(
-                                          hours[bottomNavBarIndex] + ' h',
-                                          style: TextStyle(
-                                            fontSize: 30.0,
-                                            color: Color.fromRGBO(
-                                                128, 142, 149, 1),
-                                            fontWeight: FontWeight.bold,
+                              Padding(
+                                padding: const EdgeInsets.only(
+                                    top: 10.0, bottom: 10.0),
+                                child: Container(
+                                    width: 150.0,
+                                    height: 130.0,
+                                    decoration: new BoxDecoration(
+                                      shape: BoxShape.circle,
+                                      color: Colors.white,
+                                    ),
+                                    child: Column(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.center,
+                                      children: <Widget>[
+                                        Container(
+                                          child: Text(
+                                            hours[bottomNavBarIndex] + ' h',
+                                            style: TextStyle(
+                                              fontSize: 30.0,
+                                              color: Color.fromRGBO(
+                                                  128, 142, 149, 1),
+                                              fontWeight: FontWeight.bold,
+                                            ),
                                           ),
                                         ),
-                                      ),
-                                    ],
-                                  )),
-                            ),
-                          ])
-                    ],
-                  ),
-                )
-              ]
-              )
-              )
-        ),
+                                      ],
+                                    )),
+                              ),
+                            ])
+                      ],
+                    ),
+                  )
+                ]))),
         SliverFillRemaining(
           child: FutureBuilder(
             future: countries,
@@ -136,25 +134,31 @@ class _WeekPlanScreenState extends State<WeekPlanScreen> {
                   if (snapshot.hasError)
                     return Text("There was an error: ${snapshot.error}");
                   var countries = snapshot.data;
-                  return ListView.separated(
+                  return Material(
+                      // color: Colors.grey[300],
+                      child: ListView.separated(
                     itemCount: countries.length,
                     separatorBuilder: (context, index) => Divider(),
                     itemBuilder: (BuildContext context, int index) {
                       Country message = countries[index];
                       return ListTile(
-                        title: Text(message.name),
+                        title:  Text(message.code+message.name),
                         isThreeLine: true,
-                        leading: CircleAvatar(
-                          child: Text('PJ'),
-                        ),
+                        // leading: CircleAvatar(
+                        //   child: Text('11:50 - 12:30'),
+                        // ),
                         subtitle: Text(
-                          message.nativeLang,
+                          'prowadzący: ' +
+                              message.nativeLang +
+                              '\nmiejsce:' +
+                              message.code,
                           maxLines: 2,
                           overflow: TextOverflow.ellipsis,
                         ),
+                        trailing: Icon(Icons.keyboard_arrow_right),
                       );
                     },
-                  );
+                  ));
               }
             },
           ),
@@ -166,178 +170,47 @@ class _WeekPlanScreenState extends State<WeekPlanScreen> {
           setState(() {
             bottomNavBarIndex = index;
             // selectedDay = (days[index])
+            // zmaiana dla selected
           });
         },
         items: [
           new BottomNavigationBarItem(
-              icon: Icon(
-                FontAwesomeIcons.calendarDay,
-                color: Colors.green.shade200,
-              ),
+              icon:  CircleAvatar(
+                          child: Text('Pn'),
+                        ),
               title: Text(days[0], style: TextStyle(color: Colors.black))),
           new BottomNavigationBarItem(
-              icon: Icon(
-                FontAwesomeIcons.calendarDay,
-                color: Colors.green.shade200,
-              ),
+              icon:  CircleAvatar(
+                          child: Text('Wt'),
+                        ),
               title: Text(days[1], style: TextStyle(color: Colors.black))),
           new BottomNavigationBarItem(
-              icon: Icon(
-                FontAwesomeIcons.calendarDay,
-                color: Colors.green.shade200,
-              ),
+              icon:  CircleAvatar(
+                          child: Text('Śr'),
+                        ),
               title: Text(days[2], style: TextStyle(color: Colors.black))),
           new BottomNavigationBarItem(
-              icon: Icon(
-                FontAwesomeIcons.calendarDay,
-                color: Colors.green.shade200,
-              ),
+              icon:  CircleAvatar(
+                          child: Text('Czw'),
+                        ),
               title: Text(days[3], style: TextStyle(color: Colors.black))),
           new BottomNavigationBarItem(
-              icon: Icon(
-                FontAwesomeIcons.calendarDay,
-                color: Colors.green.shade200,
-              ),
+              icon:  CircleAvatar(
+                          child: Text('Pt'),
+                        ),
               title: Text(days[4], style: TextStyle(color: Colors.black))),
+          new BottomNavigationBarItem(
+              icon:  CircleAvatar(
+                          child: Text('Sb'),
+                        ),
+              title: Text(days[5], style: TextStyle(color: Colors.black))),
+          new BottomNavigationBarItem(
+              icon:  CircleAvatar(
+                          child: Text('Nd'),
+                        ),
+              title: Text(days[6], style: TextStyle(color: Colors.black))),
         ],
       ),
     );
-
-    // body: Center(
-    //   child: ListView.builder(
-    //     itemCount: days.length,
-    //     scrollDirection: Axis.horizontal,
-    //     shrinkWrap: true,
-    //     itemBuilder: (context, index) {
-    //       return Padding(
-    //           padding: const EdgeInsets.all(5.0),
-    //           child: Wrap(alignment: WrapAlignment.center, children: [
-    //             Container(
-    //               decoration: BoxDecoration(
-    //                 borderRadius: BorderRadius.circular(5.0),
-    //                 color: dayColor[index],
-    //               ),
-    //               child: Row(
-    //                 mainAxisAlignment: MainAxisAlignment.center,
-    //                 children: <Widget>[
-    //                   Column(
-    //                       mainAxisAlignment: MainAxisAlignment.center,
-    //                       children: <Widget>[
-    //                         Padding(
-    //                           padding: const EdgeInsets.only(top: 8.0),
-    //                           child: Container(
-    //                             child: Text(
-    //                               days[index], // day
-    //                               style: TextStyle(
-    //                                 color: Colors.white,
-    //                                 fontSize: 24.0,
-    //                                 fontWeight: FontWeight.bold,
-    //                               ),
-    //                             ),
-    //                           ),
-    //                         ),
-    //                         Container(
-    //                           child: Text(
-    //                             'Czas trawnia twoich zajęc',
-    //                             style: TextStyle(
-    //                               color: Colors.white54,
-    //                               fontSize: 20.0,
-    //                             ),
-    //                           ),
-    //                         ),
-    //                         Padding(
-    //                           padding: const EdgeInsets.only(top: 8.0),
-    //                           child: Container(
-    //                               width: 150.0,
-    //                               height: 130.0,
-    //                               decoration: new BoxDecoration(
-    //                                 shape: BoxShape.circle,
-    //                                 color: Colors.white,
-    //                               ),
-    //                               child: Column(
-    //                                 mainAxisAlignment:
-    //                                     MainAxisAlignment.center,
-    //                                 children: <Widget>[
-    //                                   Container(
-    //                                     child: Text(
-    //                                       hours[index] + ' h',
-    //                                       style: TextStyle(
-    //                                         fontSize: 30.0,
-    //                                         color: Color.fromRGBO(
-    //                                             128, 142, 149, 1),
-    //                                         fontWeight: FontWeight.bold,
-    //                                       ),
-    //                                     ),
-    //                                   ),
-    //                                 ],
-    //                               )),
-    //                         ),
-
-    //                         // DataTable(
-    //                         //   columns: [
-    //                         //     DataColumn(label: Text('Godzina')),
-    //                         //     DataColumn(label: Text('Przedmiot')),
-    //                         //     DataColumn(label: Text('Miejsce')),
-    //                         //   ],
-    //                         //   rows:
-    //                         //    [
-    //                         //     DataRow(cells: [
-    //                         //       DataCell(Text('8:00 - 10:00')),
-    //                         //       DataCell(Text('Seminarium')),
-    //                         //       DataCell(Text('PŁ')),
-    //                         //     ]),
-    //                         //     DataRow(cells: [
-    //                         //       DataCell(Text('11:00 - 12:00')),
-    //                         //       DataCell(Text('Fizyka')),
-    //                         //       DataCell(Text('CTI 102')),
-    //                         //     ]),
-    //                         //     DataRow(cells: [
-    //                         //       DataCell(Text('11:00 - 12:00')),
-    //                         //       DataCell(Text('Fizyka')),
-    //                         //       DataCell(Text('CTI 102')),
-    //                         //     ]),
-    //                         //     DataRow(cells: [
-    //                         //       DataCell(Text('11:00 - 12:00')),
-    //                         //       DataCell(Text('Fizyka')),
-    //                         //       DataCell(Text('CTI 102')),
-    //                         //     ]),
-    //                         //     DataRow(cells: [
-    //                         //       DataCell(Text('11:00 - 12:00')),
-    //                         //       DataCell(Text('Fizyka')),
-    //                         //       DataCell(Text('CTI 102')),
-    //                         //     ]),
-    //                         //     DataRow(cells: [
-    //                         //       DataCell(Text('11:00 - 12:00')),
-    //                         //       DataCell(Text('Fizyka')),
-    //                         //       DataCell(Text('CTI 102')),
-    //                         //     ]),
-    //                         //   ],
-    //                         // ),
-    //                         // //Button
-    //                         Padding(
-    //                           padding: const EdgeInsets.only(top: 3.0),
-    //                           child: GreenButton(
-    //                             labelText: 'Mockup',
-    //                             onPressed: () {
-    //                               Navigator.pop(context);
-    //                               Navigator.push(
-    //                                 context,
-    //                                 MaterialPageRoute(
-    //                                   builder: (BuildContext context) =>
-    //                                       GraphqlTest(),
-    //                                 ),
-    //                               );
-    //                             },
-    //                           ),
-    //                         )
-    //                       ])
-    //                 ],
-    //               ),
-    //             )
-    //           ]));
-    //     },
-    //   ),
-    // ),
-    // );
   }
 }
