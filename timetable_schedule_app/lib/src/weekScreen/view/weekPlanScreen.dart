@@ -45,10 +45,10 @@ class _WeekPlanScreenState extends State<WeekPlanScreen> {
       drawer: DrawerApp(),
       body: CustomScrollView(slivers: <Widget>[
         const SliverAppBar(
-          expandedHeight: 100.0,
+          expandedHeight: 10.0,
           pinned: true,
           flexibleSpace: FlexibleSpaceBar(
-            title: Text('Plan tygodnia'),
+            title: Text('Plan tygodnia (TYTUŁ)'),
           ),
         ),
         SliverToBoxAdapter(
@@ -144,9 +144,9 @@ class _WeekPlanScreenState extends State<WeekPlanScreen> {
                       return ListTile(
                         title:  Text(message.code+message.name),
                         isThreeLine: true,
-                        // leading: CircleAvatar(
-                        //   child: Text('11:50 - 12:30'),
-                        // ),
+                        leading: CircleAvatar(
+                          child: Text('xd'),
+                        ),
                         subtitle: Text(
                           'prowadzący: ' +
                               message.nativeLang +
@@ -178,37 +178,37 @@ class _WeekPlanScreenState extends State<WeekPlanScreen> {
               icon:  CircleAvatar(
                           child: Text('Pn'),
                         ),
-              title: Text(days[0], style: TextStyle(color: Colors.black))),
+              title: Text(days[0], style: TextStyle(color: Colors.white))),
           new BottomNavigationBarItem(
               icon:  CircleAvatar(
                           child: Text('Wt'),
                         ),
-              title: Text(days[1], style: TextStyle(color: Colors.black))),
+              title: Text(days[1], style: TextStyle(color: Colors.white))),
           new BottomNavigationBarItem(
               icon:  CircleAvatar(
                           child: Text('Śr'),
                         ),
-              title: Text(days[2], style: TextStyle(color: Colors.black))),
+              title: Text(days[2], style: TextStyle(color: Colors.white))),
           new BottomNavigationBarItem(
               icon:  CircleAvatar(
                           child: Text('Czw'),
                         ),
-              title: Text(days[3], style: TextStyle(color: Colors.black))),
+              title: Text(days[3], style: TextStyle(color: Colors.white))),
           new BottomNavigationBarItem(
               icon:  CircleAvatar(
                           child: Text('Pt'),
                         ),
-              title: Text(days[4], style: TextStyle(color: Colors.black))),
+              title: Text(days[4], style: TextStyle(color: Colors.white))),
           new BottomNavigationBarItem(
               icon:  CircleAvatar(
                           child: Text('Sb'),
                         ),
-              title: Text(days[5], style: TextStyle(color: Colors.black))),
+              title: Text(days[5], style: TextStyle(color: Colors.white))),
           new BottomNavigationBarItem(
               icon:  CircleAvatar(
                           child: Text('Nd'),
                         ),
-              title: Text(days[6], style: TextStyle(color: Colors.black))),
+              title: Text(days[6], style: TextStyle(color: Colors.white))),
         ],
       ),
     );
