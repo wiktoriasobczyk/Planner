@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
+import 'package:timetable_schedule_app/src/graphql-test/query/gueries.dart';
 
 class GraphqlTest extends StatefulWidget {
   @override
@@ -7,6 +8,7 @@ class GraphqlTest extends StatefulWidget {
 }
 
 class _GraphqlTestState extends State<GraphqlTest> {
+  QueriesMutations queries = QueriesMutations();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -14,22 +16,17 @@ class _GraphqlTestState extends State<GraphqlTest> {
         title: Text('GrapghQL test'),
       ),
       body: Query(
-        options: QueryOptions(documentNode: gql(r"""
-      query GetContinets{
-        countries{
-  	      name
-        }
-      }
-      """)),
+        options: QueryOptions(documentNode: gql(queries.getContinets())),
         builder: (
           QueryResult result, {
           Refetch refetch,
           FetchMore fetchMore,
         }) {
           if (result.data == null) {
-            return Text('no data found');
+            return new Center(
+              child: new CircularProgressIndicator(),
+            );
           }
-          print('twoja stara');
           print(result.data['countries']);
           return ListView.builder(
             itemBuilder: (BuildContext context, int index) {
