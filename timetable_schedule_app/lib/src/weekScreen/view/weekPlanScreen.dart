@@ -43,70 +43,123 @@ class _WeekPlanScreenState extends State<WeekPlanScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       drawer: DrawerApp(),
-      body: CustomScrollView(
-        slivers: <Widget>[
-          const SliverAppBar(
-            expandedHeight: 100.0,
-            pinned: true,
-            flexibleSpace: FlexibleSpaceBar(
-              title: Text('Plan tygodnia'),
-            ),
+      body: CustomScrollView(slivers: <Widget>[
+        const SliverAppBar(
+          expandedHeight: 100.0,
+          pinned: true,
+          flexibleSpace: FlexibleSpaceBar(
+            title: Text('Plan tygodnia'),
           ),
-          SliverToBoxAdapter(
-           child: Row(
+        ),
+        SliverToBoxAdapter(
+          child: Padding(
+              padding: const EdgeInsets.all(5.0),
+              child: Wrap(alignment: WrapAlignment.center, children: [
+                Container(
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(5.0),
+                    color: dayColor[bottomNavBarIndex],
+                  ),
+                  child: Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: <Widget>[
                       Column(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: <Widget>[
+                            Padding(
+                              padding: const EdgeInsets.only(top: 8.0),
+                              child: Container(
+                                child: Text(
+                                  days[bottomNavBarIndex], // day
+                                  style: TextStyle(
+                                    color: Colors.white,
+                                    fontSize: 24.0,
+                                    fontWeight: FontWeight.bold,
+                                  ),
+                                ),
+                              ),
+                            ),
                             Container(
-                              width: 150.0,
-                              height: 130.0,
-                              decoration: new BoxDecoration(
-                                shape: BoxShape.circle,
-                                color: Colors.red,
-                        )),
-                          ])]
-           ),
+                              child: Text(
+                                'Czas trawnia twoich zajęc',
+                                style: TextStyle(
+                                  color: Colors.white54,
+                                  fontSize: 20.0,
+                                ),
+                              ),
+                            ),
+                            Padding(
+                              padding: const EdgeInsets.only(top: 10.0,bottom: 10.0),
+                              child: Container(
+                                  width: 150.0,
+                                  height: 130.0,
+                                  decoration: new BoxDecoration(
+                                    shape: BoxShape.circle,
+                                    color: Colors.white,
+                                  ),
+                                  child: Column(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.center,
+                                    children: <Widget>[
+                                      Container(
+                                        child: Text(
+                                          hours[bottomNavBarIndex] + ' h',
+                                          style: TextStyle(
+                                            fontSize: 30.0,
+                                            color: Color.fromRGBO(
+                                                128, 142, 149, 1),
+                                            fontWeight: FontWeight.bold,
+                                          ),
+                                        ),
+                                      ),
+                                    ],
+                                  )),
+                            ),
+                          ])
+                    ],
+                  ),
+                )
+              ]
+              )
+              )
+        ),
+        SliverFillRemaining(
+          child: FutureBuilder(
+            future: countries,
+            builder: (BuildContext context, AsyncSnapshot snapshot) {
+              switch (snapshot.connectionState) {
+                case ConnectionState.none:
+                case ConnectionState.waiting:
+                case ConnectionState.active:
+                  return Center(child: CircularProgressIndicator());
+                case ConnectionState.done:
+                  if (snapshot.hasError)
+                    return Text("There was an error: ${snapshot.error}");
+                  var countries = snapshot.data;
+                  return ListView.separated(
+                    itemCount: countries.length,
+                    separatorBuilder: (context, index) => Divider(),
+                    itemBuilder: (BuildContext context, int index) {
+                      Country message = countries[index];
+                      return ListTile(
+                        title: Text(message.name),
+                        isThreeLine: true,
+                        leading: CircleAvatar(
+                          child: Text('PJ'),
+                        ),
+                        subtitle: Text(
+                          message.nativeLang,
+                          maxLines: 2,
+                          overflow: TextOverflow.ellipsis,
+                        ),
+                      );
+                    },
+                  );
+              }
+            },
           ),
-          SliverFillRemaining(
-            child: FutureBuilder(
-              future: countries,
-              builder: (BuildContext context, AsyncSnapshot snapshot) {
-                switch (snapshot.connectionState) {
-                  case ConnectionState.none:
-                  case ConnectionState.waiting:
-                  case ConnectionState.active:
-                    return Center(child: CircularProgressIndicator());
-                  case ConnectionState.done:
-                    if (snapshot.hasError)
-                      return Text("There was an error: ${snapshot.error}");
-                    var countries = snapshot.data;
-                    return ListView.separated(
-                      itemCount: countries.length,
-                      separatorBuilder: (context, index) => Divider(),
-                      itemBuilder: (BuildContext context, int index) {
-                        Country message = countries[index];
-                        return ListTile(
-                          title: Text(message.name),
-                          isThreeLine: true,
-                          leading: CircleAvatar(
-                            child: Text('PJ'),
-                          ),
-                          subtitle: Text(
-                            message.nativeLang,
-                            maxLines: 2,
-                            overflow: TextOverflow.ellipsis,
-                          ),
-                        );
-                      },
-                    );
-                }
-              },
-            ),
-          )
-        ],
-      ),
+        )
+      ]),
       bottomNavigationBar: new BottomNavigationBar(
         currentIndex: bottomNavBarIndex,
         onTap: (int index) {
