@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_login/flutter_login.dart';
+import 'package:timetable_schedule_app/src/home/controller/login-register-controller.dart';
 import 'package:timetable_schedule_app/src/weekScreen/view.dart';
 
 const users = const {
@@ -16,10 +17,15 @@ class LoginScreen extends StatelessWidget {
         return 'Podana nazwa użytkownika nie istnieje';
       }
       if (users[data.name] != data.password) {
-        return 'Hasła do siebie nie pasują';
+        return 'Bład podczas wprowadzania hasła';
       }
       return null;
     });
+  }
+
+  Future<String> _regAuthUser(LoginData data) {
+    LogRegController ctrl = new LogRegController();
+    return ctrl.authRegUser(data.name, data.password);
   }
 
   Future<String> _recoverPassword(String name) {
@@ -37,14 +43,14 @@ class LoginScreen extends StatelessWidget {
     return FlutterLogin(
       title: 'Planner',
       onLogin: _authUser,
-      onSignup: _authUser,
+      onSignup: _regAuthUser,
       onSubmitAnimationCompleted: () {
         Navigator.push(
           context,
           MaterialPageRoute(
             builder: (BuildContext context) => WeekPlanScreen(),
-            ),
-         );
+          ),
+        );
       },
       emailValidator: (value) {
         if (!value.contains('@') || !value.endsWith('.com')) {

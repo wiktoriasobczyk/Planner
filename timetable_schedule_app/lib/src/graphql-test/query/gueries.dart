@@ -1,5 +1,5 @@
 class QueriesMutations {
-    String getContinets() {
+  String getContinets() {
     return r"""
       query GetContinets{
         countries{
@@ -11,5 +11,15 @@ class QueriesMutations {
         }
       }
       """;
+  }
+
+  String registerMutation(String email, String password) {
+    return r"""
+      mutation register{
+          register(input:{email: "$email", password: "$password"}){
+            accessToken
+          }
+      }    
+     """;
   }
 }
