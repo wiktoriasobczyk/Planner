@@ -6,6 +6,7 @@ import 'package:timetable_schedule_app/src/drawer/view.dart';
 import 'package:timetable_schedule_app/src/graphql-test/controller/country-controller.dart';
 import 'package:timetable_schedule_app/src/graphql-test/model/country.dart';
 import 'package:timetable_schedule_app/src/graphql-test/view/graphql_test.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 class WeekPlanScreen extends StatefulWidget {
   @override
@@ -16,14 +17,15 @@ class _WeekPlanScreenState extends State<WeekPlanScreen> {
   CountryController ctrl = new CountryController();
   Future<List<Country>> countries;
   final days = [
-    'PONIEDZIAŁEK',
-    'WTOREK',
-    'ŚRODA',
-    'CZWARTEK',
-    'PIĄTEK',
+    'PN',
+    'WT',
+    'ŚR',
+    'CZW',
+    'PT',
     'SOBOTA',
     'NIEDZIELA'
   ];
+  int bottomNavBarIndex = 0;
   final hours = ['2', '3', '7', '2', '3', '1', '3'];
   final dayColor = [
     Colors.green[200],
@@ -49,50 +51,69 @@ class _WeekPlanScreenState extends State<WeekPlanScreen> {
         title: Text('Plan tygodnia'),
       ),
       drawer: DrawerApp(),
-     body: CustomScrollView(
-       slivers: <Widget>[
-         SliverFillRemaining(
-          child: FutureBuilder(
-          future: countries,
-          builder: (BuildContext context, AsyncSnapshot snapshot) {
-            switch (snapshot.connectionState) {
-              case ConnectionState.none:
-              case ConnectionState.waiting:
-              case ConnectionState.active:
-                return Center(child: CircularProgressIndicator());
-              case ConnectionState.done:
-                if (snapshot.hasError)
-                  return Text("There was an error: ${snapshot.error}");
-                var countries = snapshot.data;
-                return ListView.separated(
-                  itemCount: countries.length,
-                  separatorBuilder: (context, index) => Divider(),
-                  itemBuilder: (BuildContext context, int index) {
-                    Country message = countries[index];
+      body: CustomScrollView(
+        slivers: <Widget>[
+          SliverFillRemaining(
+            child: FutureBuilder(
+              future: countries,
+              builder: (BuildContext context, AsyncSnapshot snapshot) {
+                switch (snapshot.connectionState) {
+                  case ConnectionState.none:
+                  case ConnectionState.waiting:
+                  case ConnectionState.active:
+                    return Center(child: CircularProgressIndicator());
+                  case ConnectionState.done:
+                    if (snapshot.hasError)
+                      return Text("There was an error: ${snapshot.error}");
+                    var countries = snapshot.data;
+                    return ListView.separated(
+                      itemCount: countries.length,
+                      separatorBuilder: (context, index) => Divider(),
+                      itemBuilder: (BuildContext context, int index) {
+                        Country message = countries[index];
 
-                    return ListTile(
-                      title: Text(message.name),
-                      isThreeLine: true,
-                      leading: CircleAvatar(
-                        child: Text('PJ'), 
-                      ),
-                      subtitle: Text(
-                        message.nativeLang,
-                        maxLines: 2,
-                        overflow: TextOverflow.ellipsis,
-                      ),
+                        return ListTile(
+                          title: Text(message.name),
+                          isThreeLine: true,
+                          leading: CircleAvatar(
+                            child: Text('PJ'),
+                          ),
+                          subtitle: Text(
+                            message.nativeLang,
+                            maxLines: 2,
+                            overflow: TextOverflow.ellipsis,
+                          ),
+                        );
+                      },
                     );
-                  },
-                );
-            }
-          },
-        ),
-         )
-       ],
-     )
-     );
-         
- 
+                }
+              },
+            ),
+          )
+        ],
+      ),
+      bottomNavigationBar: new BottomNavigationBar(
+        currentIndex: bottomNavBarIndex,
+        onTap: (int index) {
+          setState(() {
+              bottomNavBarIndex = index;
+          });
+        },
+        items: [
+          new BottomNavigationBarItem(
+              icon: Icon(FontAwesomeIcons.calendarDay,  color: Colors.green.shade200,), title: Text(days[0],style: TextStyle(color: Colors.black))),
+          new BottomNavigationBarItem(
+              icon: Icon(FontAwesomeIcons.calendarDay, color: Colors.green.shade200,), title: Text(days[1],style: TextStyle(color: Colors.black))),
+          new BottomNavigationBarItem(
+              icon: Icon(FontAwesomeIcons.calendarDay, color: Colors.green.shade200,), title: Text(days[2],style: TextStyle(color: Colors.black))),
+          new BottomNavigationBarItem(
+              icon: Icon(FontAwesomeIcons.calendarDay, color: Colors.green.shade200,), title: Text(days[3],style: TextStyle(color: Colors.black))),
+          new BottomNavigationBarItem(
+              icon: Icon(FontAwesomeIcons.calendarDay,   color: Colors.green.shade200,), title: Text(days[4],style: TextStyle(color: Colors.black))),
+        ],
+      ),
+    );
+
     // body: Center(
     //   child: ListView.builder(
     //     itemCount: days.length,
@@ -230,16 +251,4 @@ class _WeekPlanScreenState extends State<WeekPlanScreen> {
     // ),
     // );
   }
-}
-
-ListTile myRowDataIcon(IconData iconVal, String rowVal) {
-  return ListTile(
-    leading: Icon(iconVal, color: new Color(0xffffffff)),
-    title: Text(
-      rowVal,
-      style: TextStyle(
-        color: Colors.white,
-      ),
-    ),
-  );
 }
