@@ -3,7 +3,11 @@ class QueriesMutations {
     return r"""
       query GetContinets{
         countries{
-  	      name
+  	      name,
+          code,
+          phone,
+          currency,
+          native
         }
       }
       """;
