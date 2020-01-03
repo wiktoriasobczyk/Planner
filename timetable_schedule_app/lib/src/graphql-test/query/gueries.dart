@@ -14,7 +14,7 @@ class QueriesMutations {
   }
 
   String registerMutation(String email, String password) {
-    return r"""
+    return """
       mutation register{
           register(input:{email: "$email", password: "$password"}){
             accessToken
