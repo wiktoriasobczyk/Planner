@@ -13,11 +13,11 @@ class LogRegController {
         documentNode: gql(
       queryMutation.registerMutation(email, password),
     )));
-    if (!result.hasException) {
-      return 'blad';
+    if (result.hasException) {
+        print(result.exception);
+      return 'Rejestracja nie powiodła się';
     } else {
-      print(result.exception);
-      return 'udalo sie zalozyc konto';
+      return null;
     }
   }
 }
