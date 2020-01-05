@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_login/flutter_login.dart';
+import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:timetable_schedule_app/src/addLessonScreen/view/addLesson.dart';
 import 'package:timetable_schedule_app/src/home/controller/login-register-controller.dart';
 import 'package:timetable_schedule_app/src/home/model/formtype.dart';
@@ -33,7 +34,7 @@ class LoginScreen extends StatelessWidget {
   Future<String> _regAuthUser(LoginData data) {
     LogRegController ctrl = new LogRegController();
     isRegister = true;
-    
+
     return ctrl.authRegUser(data.name, data.password);
   }
 
@@ -63,6 +64,8 @@ class LoginScreen extends StatelessWidget {
             ),
           );
         }
+        // GraphQLProvider.of(context).dispose();
+        // GraphQLProvider.of(context).addListener(listener)
         if (isRegister == true) {
           Navigator.push(
             context,
