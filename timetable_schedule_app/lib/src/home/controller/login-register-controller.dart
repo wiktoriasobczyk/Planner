@@ -14,9 +14,10 @@ class LogRegController {
       queryMutation.registerMutation(email, password),
     )));
     if (result.hasException) {
-        print(result.exception);
+      print(result.exception);
       return 'Rejestracja nie powiodła się';
     } else {
+      print(result.data['register']['accessToken']);
       return null;
     }
   }
