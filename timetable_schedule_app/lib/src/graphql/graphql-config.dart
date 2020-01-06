@@ -1,15 +1,32 @@
-
 import "package:flutter/material.dart";
 import "package:graphql_flutter/graphql_flutter.dart";
 
 class GraphQLConfiguration {
+  static Link link = null;
   static HttpLink httpLink = HttpLink(
+    // uri: "https://countries.trevorblades.com/",
     uri: "https://murmuring-tundra-28589.herokuapp.com/graphql",
   );
+
+  static void setToken(String token) {
+    AuthLink alink = AuthLink(getToken: () async => 'Bearer ' + token);
+    GraphQLConfiguration.link = alink.concat(GraphQLConfiguration.httpLink);
+  }
+
+  static void removeToken() {
+    GraphQLConfiguration.link = null;
+  }
+
+  static Link getLink() {
+    return GraphQLConfiguration.link != null
+        ? GraphQLConfiguration.link
+        : GraphQLConfiguration.httpLink;
+  }
+
   // po rejestracji i logowaniu dawac header jak wylogujesz to go usunac
   ValueNotifier<GraphQLClient> client = ValueNotifier(
     GraphQLClient(
-      link: httpLink,
+      link: getLink(),
       cache: OptimisticCache(dataIdFromObject: typenameDataIdFromObject),
     ),
   );
@@ -17,7 +34,7 @@ class GraphQLConfiguration {
   GraphQLClient clientToQuery() {
     return GraphQLClient(
       cache: OptimisticCache(dataIdFromObject: typenameDataIdFromObject),
-      link: httpLink,
+      link: getLink(),
     );
   }
 }

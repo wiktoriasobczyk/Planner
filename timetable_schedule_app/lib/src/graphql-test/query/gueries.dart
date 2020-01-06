@@ -22,4 +22,15 @@ class QueriesMutations {
       }    
      """;
   }
+
+  String test() {
+    return """
+      query test {
+        test{
+          accessToken
+          id
+        }
+      }
+    """;
+  }
 }

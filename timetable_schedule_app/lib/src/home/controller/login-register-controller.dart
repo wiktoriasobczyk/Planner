@@ -17,7 +17,9 @@ class LogRegController {
       print(result.exception);
       return 'Rejestracja nie powiodła się';
     } else {
-      print(result.data['register']['accessToken']);
+      String token = result.data['register']['accessToken'];
+      GraphQLConfiguration.setToken(token);
+
       return null;
     }
   }
