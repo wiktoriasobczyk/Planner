@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:timetable_schedule_app/src/common/green_button.dart';
 import 'package:timetable_schedule_app/src/drawer/view.dart';
 import 'package:timetable_schedule_app/src/graphql-test/controller/country-controller.dart';
 import 'package:timetable_schedule_app/src/graphql-test/model/country.dart';
+import 'package:timetable_schedule_app/src/weekScreen/view.dart';
 
 class WeekPlanScreen extends StatefulWidget {
   @override
@@ -11,20 +14,32 @@ class WeekPlanScreen extends StatefulWidget {
 class _WeekPlanScreenState extends State<WeekPlanScreen> {
   CountryController ctrl = new CountryController();
   Future<List<Country>> countries;
-  final days = ['Poniedziałek', 'WT', 'ŚR', 'CZW', 'PT', 'SOBOTA', 'NIEDZIELA'];
+  final days = ['Pn', 'Wt', 'Śr', 'Czw', 'Pt', 'Sb', 'Nd'];
+
   int bottomNavBarIndex;
-  String selectedDay;
-  final hours = ['2', '3', '7', '2', '3', '1', '3'];
-  final dayColor = [
-    Colors.green[200],
-    Colors.blueGrey[100],
-    Colors.green[200],
-    Colors.blueGrey[100],
-    Colors.green[200],
-    Colors.blueGrey[100],
-    Colors.green[200],
-    Colors.blueGrey[100]
+  Color selectedTextColor = Colors.green;
+  List<Color> itemColor = [
+    Colors.white,
+    Colors.white,
+    Colors.white,
+    Colors.white,
+    Colors.white,
+    Colors.white,
+    Colors.white
   ];
+  List<Color> textColor = [
+    Colors.green,
+    Colors.green,
+    Colors.green,
+    Colors.green,
+    Colors.green,
+    Colors.green,
+    Colors.green
+  ];
+
+  String selectedDay;
+
+  final dayColor = [Colors.white, Colors.green];
 
   @override
   void initState() {
@@ -32,6 +47,36 @@ class _WeekPlanScreenState extends State<WeekPlanScreen> {
     selectedDay = days[0];
     bottomNavBarIndex = 0;
     countries = ctrl.getCountriesList();
+  }
+
+   ListTile myRowDataIcon(Icon icon, String rowVal) {
+      return ListTile(
+        leading: icon,
+        title: Text(
+          rowVal,
+          style: TextStyle(color: Colors.grey),
+        ),
+      );
+    }
+
+  _onButtonPressed(Country meesage) {
+    print('xd');
+    showModalBottomSheet(
+        context: context,
+        builder: (context) {
+          return Column(
+            children: <Widget>[
+              Text('Szczegóły'),
+              
+              myRowDataIcon(null, meesage.name),
+              myRowDataIcon(Icon(FontAwesomeIcons.timesCircle), '12.30 - 14.30'),
+              myRowDataIcon(Icon(FontAwesomeIcons.calendar), '12.08.2020'),
+              myRowDataIcon(Icon(FontAwesomeIcons.peopleCarry), 'Twoja Stara'),
+              myRowDataIcon(null, 'Szczegóły: x1, x2  to gówno'),
+              GreenButton(labelText: 'Edytuj', onPressed: null),
+            ],
+          );
+        });
   }
 
   @override
@@ -53,7 +98,7 @@ class _WeekPlanScreenState extends State<WeekPlanScreen> {
                   Container(
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(5.0),
-                      color: dayColor[bottomNavBarIndex],
+                      // color: Colors.white,
                     ),
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.center,
@@ -62,54 +107,17 @@ class _WeekPlanScreenState extends State<WeekPlanScreen> {
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: <Widget>[
                               Padding(
-                                padding: const EdgeInsets.only(top: 8.0),
+                                padding: const EdgeInsets.only(top: 0.0),
                                 child: Container(
                                   child: Text(
                                     days[bottomNavBarIndex], // day
                                     style: TextStyle(
-                                      color: Colors.white,
+                                      color: Colors.grey,
                                       fontSize: 24.0,
                                       fontWeight: FontWeight.bold,
                                     ),
                                   ),
                                 ),
-                              ),
-                              Container(
-                                child: Text(
-                                  'Czas trawnia twoich zajęc',
-                                  style: TextStyle(
-                                    color: Colors.white54,
-                                    fontSize: 20.0,
-                                  ),
-                                ),
-                              ),
-                              Padding(
-                                padding: const EdgeInsets.only(
-                                    top: 10.0, bottom: 10.0),
-                                child: Container(
-                                    width: 150.0,
-                                    height: 130.0,
-                                    decoration: new BoxDecoration(
-                                      shape: BoxShape.circle,
-                                      color: Colors.white,
-                                    ),
-                                    child: Column(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.center,
-                                      children: <Widget>[
-                                        Container(
-                                          child: Text(
-                                            hours[bottomNavBarIndex] + ' h',
-                                            style: TextStyle(
-                                              fontSize: 30.0,
-                                              color: Color.fromRGBO(
-                                                  128, 142, 149, 1),
-                                              fontWeight: FontWeight.bold,
-                                            ),
-                                          ),
-                                        ),
-                                      ],
-                                    )),
                               ),
                             ])
                       ],
@@ -130,27 +138,24 @@ class _WeekPlanScreenState extends State<WeekPlanScreen> {
                     return Text("There was an error: ${snapshot.error}");
                   var countries = snapshot.data;
                   return Material(
-                      // color: Colors.grey[300],
                       child: ListView.separated(
                     itemCount: countries.length,
                     separatorBuilder: (context, index) => Divider(),
                     itemBuilder: (BuildContext context, int index) {
                       Country message = countries[index];
                       return ListTile(
-                        title:  Text(message.code+message.name),
+                        title: Text('12:30 - 15:00   ' + message.name),
                         isThreeLine: true,
-                        leading: CircleAvatar(
-                          child: Text('xd'),
-                        ),
                         subtitle: Text(
                           'prowadzący: ' +
                               message.nativeLang +
-                              '\nmiejsce:' +
+                              '\nmiejsce: ' +
                               message.code,
                           maxLines: 2,
                           overflow: TextOverflow.ellipsis,
                         ),
                         trailing: Icon(Icons.keyboard_arrow_right),
+                        onTap: () => _onButtonPressed(countries[index]),
                       );
                     },
                   ));
@@ -161,6 +166,9 @@ class _WeekPlanScreenState extends State<WeekPlanScreen> {
       ]),
       bottomNavigationBar: new BottomNavigationBar(
         currentIndex: bottomNavBarIndex,
+        selectedItemColor: Colors.green,
+        unselectedItemColor: Colors.grey,
+        showUnselectedLabels: true,
         onTap: (int index) {
           setState(() {
             bottomNavBarIndex = index;
@@ -170,40 +178,26 @@ class _WeekPlanScreenState extends State<WeekPlanScreen> {
         },
         items: [
           new BottomNavigationBarItem(
-              icon:  CircleAvatar(
-                          child: Text('Pn'),
-                        ),
-              title: Text(days[0], style: TextStyle(color: Colors.white))),
+              icon: Icon(FontAwesomeIcons.calendar),
+              title: Text(days[0], style: TextStyle(color: Colors.grey))),
           new BottomNavigationBarItem(
-              icon:  CircleAvatar(
-                          child: Text('Wt'),
-                        ),
-              title: Text(days[1], style: TextStyle(color: Colors.white))),
+              icon: Icon(FontAwesomeIcons.calendar),
+              title: Text(days[1], style: TextStyle(color: Colors.grey))),
           new BottomNavigationBarItem(
-              icon:  CircleAvatar(
-                          child: Text('Śr'),
-                        ),
-              title: Text(days[2], style: TextStyle(color: Colors.white))),
+              icon: Icon(FontAwesomeIcons.calendar),
+              title: Text(days[2], style: TextStyle(color: Colors.grey))),
           new BottomNavigationBarItem(
-              icon:  CircleAvatar(
-                          child: Text('Czw'),
-                        ),
-              title: Text(days[3], style: TextStyle(color: Colors.white))),
+              icon: Icon(FontAwesomeIcons.calendar),
+              title: Text(days[3], style: TextStyle(color: Colors.grey))),
           new BottomNavigationBarItem(
-              icon:  CircleAvatar(
-                          child: Text('Pt'),
-                        ),
-              title: Text(days[4], style: TextStyle(color: Colors.white))),
+              icon: Icon(FontAwesomeIcons.calendar),
+              title: Text(days[4], style: TextStyle(color: Colors.grey))),
           new BottomNavigationBarItem(
-              icon:  CircleAvatar(
-                          child: Text('Sb'),
-                        ),
-              title: Text(days[5], style: TextStyle(color: Colors.white))),
+              icon: Icon(FontAwesomeIcons.calendar),
+              title: Text('Sb', style: TextStyle(color: Colors.grey))),
           new BottomNavigationBarItem(
-              icon:  CircleAvatar(
-                          child: Text('Nd'),
-                        ),
-              title: Text(days[6], style: TextStyle(color: Colors.white))),
+              icon: Icon(FontAwesomeIcons.calendar),
+              title: Text(days[6], style: TextStyle(color: Colors.grey))),
         ],
       ),
     );
