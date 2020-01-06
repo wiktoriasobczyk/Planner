@@ -49,17 +49,17 @@ class _WeekPlanScreenState extends State<WeekPlanScreen> {
     countries = ctrl.getCountriesList();
   }
 
-   ListTile myRowDataIcon(Icon icon, String rowVal) {
-      return ListTile(
-        leading: icon,
-        title: Text(
-          rowVal,
-          style: TextStyle(color: Colors.grey),
-        ),
-      );
-    }
+  ListTile myRowDataIcon(Icon icon, String rowVal) {
+    return ListTile(
+      leading: icon,
+      title: Text(
+        rowVal,
+        style: TextStyle(color: Colors.grey),
+      ),
+    );
+  }
 
-  _onButtonPressed(Country meesage) {
+  _onButtonPressed(Country mesage) {
     print('xd');
     showModalBottomSheet(
         context: context,
@@ -67,13 +67,20 @@ class _WeekPlanScreenState extends State<WeekPlanScreen> {
           return Column(
             children: <Widget>[
               Text('Szczegóły'),
-              
-              myRowDataIcon(null, meesage.name),
-              myRowDataIcon(Icon(FontAwesomeIcons.timesCircle), '12.30 - 14.30'),
+              myRowDataIcon(null, mesage.name),
+              myRowDataIcon(
+                  Icon(FontAwesomeIcons.timesCircle), '12.30 - 14.30'),
               myRowDataIcon(Icon(FontAwesomeIcons.calendar), '12.08.2020'),
-              myRowDataIcon(Icon(FontAwesomeIcons.peopleCarry), 'Twoja Stara'),
-              myRowDataIcon(null, 'Szczegóły: x1, x2  to gówno'),
-              GreenButton(labelText: 'Edytuj', onPressed: null),
+              myRowDataIcon(Icon(FontAwesomeIcons.peopleCarry), mesage.nativeLang),
+              myRowDataIcon(null, 'Details: x1, x2  '+ mesage.phone),
+              RaisedButton(
+                  child: Text('Edytuj'),
+                  textColor: Colors.white,
+                  color: Colors.green,
+                  shape: RoundedRectangleBorder(
+                      borderRadius: new BorderRadius.circular(18.0),
+                      side: BorderSide(color: Colors.green)),
+                  onPressed: () => {print('test')}),
             ],
           );
         });
