@@ -22,6 +22,15 @@ class QueriesMutations {
       }    
      """;
   }
+  String loginMutation(String email, String password) {
+    return """
+      mutation register{
+          login(input:{email: "$email", password: "$password"}){
+            accessToken
+          }
+      }    
+     """;
+  }
 
   String test() {
     return """
