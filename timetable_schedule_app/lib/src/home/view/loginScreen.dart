@@ -1,25 +1,25 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_login/flutter_login.dart';
+import 'package:timetable_schedule_app/src/home/controller/login-register-controller.dart';
 import 'package:timetable_schedule_app/src/weekScreen/view.dart';
 
 const users = const {
-  'w@w.com': '123',
+  'w@w.com': '123456',
   'hunter@gmail.com': 'hunter',
 };
 
 class LoginScreen extends StatelessWidget {
+
   Duration get loginTime => Duration(milliseconds: 2250);
-  Future<String> _authUser(LoginData data) {
+  Future<String> _logAuthUser(LoginData data) {
     print('Name: ${data.name}, Password: ${data.password}');
-    return Future.delayed(loginTime).then((_) {
-      if (!users.containsKey(data.name)) {
-        return 'Podana nazwa użytkownika nie istnieje';
-      }
-      if (users[data.name] != data.password) {
-        return 'Hasła do siebie nie pasują';
-      }
-      return null;
-    });
+    LogRegController ctrl = new LogRegController();
+    return ctrl.authUser(data.name, data.password,true);
+  }
+
+  Future<String> _regAuthUser(LoginData data) {
+    LogRegController ctrl = new LogRegController();
+  return ctrl.authUser(data.name, data.password,false);
   }
 
   Future<String> _recoverPassword(String name) {
@@ -36,18 +36,18 @@ class LoginScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return FlutterLogin(
       title: 'Planner',
-      onLogin: _authUser,
-      onSignup: _authUser,
+      onLogin: _logAuthUser,
+      onSignup: _regAuthUser,
       onSubmitAnimationCompleted: () {
         Navigator.push(
           context,
           MaterialPageRoute(
             builder: (BuildContext context) => WeekPlanScreen(),
-            ),
-         );
+          ),
+        );
       },
       emailValidator: (value) {
-        if (!value.contains('@') || !value.endsWith('.com')) {
+        if (!value.contains('@')) {
           return "Email musi zawierać '@''";
         }
         return null;
@@ -55,6 +55,9 @@ class LoginScreen extends StatelessWidget {
       passwordValidator: (value) {
         if (value.isEmpty) {
           return 'Hasło nie może być puste';
+        }
+        if (value.length < 6) {
+          return 'Hasło powinno zawierać minimum 6 znaków';
         }
         return null;
       },
