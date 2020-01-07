@@ -49,12 +49,12 @@ class _WeekPlanScreenState extends State<WeekPlanScreen> {
           return Column(
             children: <Widget>[
               Text('Szczegóły'),
-              myRowDataIcon(null, message.name),
+              myRowDataIcon(null, 'Nazwa zajęć: '+message.name),
               myRowDataIcon(
-                  Icon(FontAwesomeIcons.timesCircle), '12.30 - 14.30'),
+                  Icon(FontAwesomeIcons.timesCircle), WeekScreenController.timeFormatter(message.startDateTime) + ' - ' + WeekScreenController.timeFormatter(message.finishDateTime)),
               myRowDataIcon(Icon(FontAwesomeIcons.calendar), message.finishDateTime),
               myRowDataIcon(Icon(FontAwesomeIcons.peopleCarry), message.place),
-              myRowDataIcon(null, 'Details: x1, x2  ' + message.leaderName),
+              myRowDataIcon(null,message.leaderName),
               RaisedButton(
                   child: Text('Edytuj'),
                   textColor: Colors.white,

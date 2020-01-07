@@ -24,12 +24,18 @@ class WeekScreenController {
           leaderName: result.data['getEventsForDay'][i]['leaderName'],
         ));
       }
-      print('twoja stara' +lessons[0].name );
+      print('twoja stara' + lessons[0].name);
     }
     print(result.exception);
     return lessons;
   }
-  // static Stvorin timeFormatter(String date){
-  //   return date.split(pattern)
-  // }
+
+  static String timeFormatter(String reveicedDate) {
+    String hours = reveicedDate.split('T')[1].split(':')[0];
+    String minutes = reveicedDate.split('T')[1].split(':')[1];
+    if (hours.length == 3) {
+      hours = hours.substring(1);
+    }
+    return hours + '.' + minutes;
+  }
 }
