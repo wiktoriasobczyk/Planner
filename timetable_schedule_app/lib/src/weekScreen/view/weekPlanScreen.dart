@@ -1,5 +1,3 @@
-import 'dart:ffi';
-
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:timetable_schedule_app/src/drawer/view.dart';
@@ -19,24 +17,6 @@ class _WeekPlanScreenState extends State<WeekPlanScreen> {
 
   int bottomNavBarIndex;
   Color selectedTextColor = Colors.green;
-  List<Color> itemColor = [
-    Colors.white,
-    Colors.white,
-    Colors.white,
-    Colors.white,
-    Colors.white,
-    Colors.white,
-    Colors.white
-  ];
-  List<Color> textColor = [
-    Colors.green,
-    Colors.green,
-    Colors.green,
-    Colors.green,
-    Colors.green,
-    Colors.green,
-    Colors.green
-  ];
 
   String selectedDay;
 
@@ -74,8 +54,7 @@ class _WeekPlanScreenState extends State<WeekPlanScreen> {
               myRowDataIcon(
                   Icon(FontAwesomeIcons.timesCircle), '12.30 - 14.30'),
               myRowDataIcon(Icon(FontAwesomeIcons.calendar), '12.08.2020'),
-              myRowDataIcon(
-                  Icon(FontAwesomeIcons.peopleCarry), message.place),
+              myRowDataIcon(Icon(FontAwesomeIcons.peopleCarry), message.place),
               myRowDataIcon(null, 'Details: x1, x2  ' + message.leaderName),
               RaisedButton(
                   child: Text('Edytuj'),
@@ -109,7 +88,6 @@ class _WeekPlanScreenState extends State<WeekPlanScreen> {
                   Container(
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(5.0),
-                      // color: Colors.white,
                     ),
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.center,
@@ -209,7 +187,7 @@ class _WeekPlanScreenState extends State<WeekPlanScreen> {
               title: Text(days[4], style: TextStyle(color: Colors.grey))),
           new BottomNavigationBarItem(
               icon: Icon(FontAwesomeIcons.calendar),
-              title: Text('Sb', style: TextStyle(color: Colors.grey))),
+              title: Text(days[5], style: TextStyle(color: Colors.grey))),
           new BottomNavigationBarItem(
               icon: Icon(FontAwesomeIcons.calendar),
               title: Text(days[6], style: TextStyle(color: Colors.grey))),

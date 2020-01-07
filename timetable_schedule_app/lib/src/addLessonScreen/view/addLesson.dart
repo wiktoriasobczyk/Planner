@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:timetable_schedule_app/src/addLessonScreen/controller/add-lesson-controller.dart';
 import 'package:timetable_schedule_app/src/addLessonScreen/view.dart';
@@ -36,6 +38,7 @@ class _AddLessonScreenState extends State<AddLessonScreen> {
 
   @override
   Widget build(BuildContext context) {
+    var operatingSystem = Platform.operatingSystem;
     return Scaffold(
       key: _key,
       appBar: AppBar(
@@ -86,6 +89,7 @@ class _AddLessonScreenState extends State<AddLessonScreen> {
               },
             ),
             Divider(),
+            if(operatingSystem=='android')
             DateField(
               labelText: 'Data zajęć',
               validator: (DateTime value) {

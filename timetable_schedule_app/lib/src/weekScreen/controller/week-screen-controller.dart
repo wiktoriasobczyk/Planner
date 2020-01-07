@@ -1,5 +1,3 @@
-import 'dart:ffi';
-
 import 'package:timetable_schedule_app/src/graphql-test/query/gueries.dart';
 import "package:graphql_flutter/graphql_flutter.dart";
 import 'package:timetable_schedule_app/src/graphql/graphql-config.dart';
@@ -30,7 +28,6 @@ class WeekScreenController {
           leaderName: result.data['getEventsForDay'][i]['leaderName'],
         ));
       }
-
       print('twoja stara' + lessons[0].name);
     }
     print(result.exception);

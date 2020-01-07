@@ -4,7 +4,6 @@ import 'package:timetable_schedule_app/src/addLessonScreen/view/addLesson.dart';
 import 'package:timetable_schedule_app/src/graphql/graphql-config.dart';
 import 'package:timetable_schedule_app/src/home/view.dart';
 import 'package:timetable_schedule_app/src/weekScreen/view/weekPlanScreen.dart';
-import 'package:timetable_schedule_app/src/graphql/graphql-config.dart';
 
 class DrawerApp extends StatefulWidget {
   @override
