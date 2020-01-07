@@ -4,19 +4,15 @@ import 'package:timetable_schedule_app/src/graphql/graphql-config.dart';
 import 'package:timetable_schedule_app/src/weekScreen/model/lesson-model.dart';
 
 class WeekScreenController {
-  Future<List<Lesson>> getLessonsForDay() async {
-  // Future<List<Lesson>> getLessonsForDay(double dayNumber) async {
+  Future<List<Lesson>> getLessonsForDay(int dayNumber) async {
     print('add lesson execution');
-    
-    
     List<Lesson> lessons = new List<Lesson>();
     QueriesMutations queryMutation = QueriesMutations();
     GraphQLConfiguration graphQLConfig = new GraphQLConfiguration();
     GraphQLClient _client = graphQLConfig.clientToQuery();
     QueryResult result = await _client.query(QueryOptions(
         documentNode: gql(
-      // queryMutation.getLessonsByDay(dayNumber),
-      queryMutation.getLessonsByDay(),
+      queryMutation.getLessonsByDay(dayNumber),
     )));
     if (!result.hasException) {
       for (var i = 0; i < result.data["getEventsForDay"].length; i++) {
@@ -28,9 +24,12 @@ class WeekScreenController {
           leaderName: result.data['getEventsForDay'][i]['leaderName'],
         ));
       }
-      print('twoja stara' + lessons[0].name);
+      print('twoja stara' +lessons[0].name );
     }
     print(result.exception);
     return lessons;
   }
+  // static Stvorin timeFormatter(String date){
+  //   return date.split(pattern)
+  // }
 }

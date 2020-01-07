@@ -12,15 +12,15 @@ class QueriesMutations {
       }
       """;
   }
-  // String getLessonsByDay(Float dayNumber) {
-  String getLessonsByDay() {
+  String getLessonsByDay(int dayNumber) {
     return """
     query getEvents{
-        getEventsForDay(dayNumber: 12){
+        getEventsForDay(dayOfWeek: {dayNumber: $dayNumber}){
           name
           startDateTime
           finishDateTime
           leaderName
+          place
         }
       }
       """;

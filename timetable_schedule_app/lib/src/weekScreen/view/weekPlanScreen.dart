@@ -11,7 +11,7 @@ class WeekPlanScreen extends StatefulWidget {
 
 class _WeekPlanScreenState extends State<WeekPlanScreen> {
   WeekScreenController ctrl = new WeekScreenController();
-  double dayNumber;
+  int dayNumber;
   Future<List<Lesson>> lessons;
   final days = ['Pn', 'Wt', 'Śr', 'Czw', 'Pt', 'Sb', 'Nd'];
 
@@ -25,11 +25,10 @@ class _WeekPlanScreenState extends State<WeekPlanScreen> {
   @override
   void initState() {
     super.initState();
-    dayNumber = DateTime.now().day.toDouble();
+    dayNumber = DateTime.now().day;
     selectedDay = days[0];
     bottomNavBarIndex = 0;
-    // lessons = ctrl.getLessonsForDay(dayNumber);
-    lessons = ctrl.getLessonsForDay();
+    lessons = ctrl.getLessonsForDay(dayNumber);
   }
 
   ListTile myRowDataIcon(Icon icon, String rowVal) {
@@ -53,7 +52,7 @@ class _WeekPlanScreenState extends State<WeekPlanScreen> {
               myRowDataIcon(null, message.name),
               myRowDataIcon(
                   Icon(FontAwesomeIcons.timesCircle), '12.30 - 14.30'),
-              myRowDataIcon(Icon(FontAwesomeIcons.calendar), '12.08.2020'),
+              myRowDataIcon(Icon(FontAwesomeIcons.calendar), message.finishDateTime),
               myRowDataIcon(Icon(FontAwesomeIcons.peopleCarry), message.place),
               myRowDataIcon(null, 'Details: x1, x2  ' + message.leaderName),
               RaisedButton(
@@ -133,18 +132,16 @@ class _WeekPlanScreenState extends State<WeekPlanScreen> {
                     itemBuilder: (BuildContext context, int index) {
                       Lesson message = lessons[index];
                       return ListTile(
-                        title: Text('12:30 - 15:00   ' + message.name),
+                        title: Text(message.startDateTime +' - ' +message.finishDateTime + message.name),
                         isThreeLine: true,
                         subtitle: Text(
                           'prowadzący: ' +
-                              message.leaderName +
-                              '\nmiejsce: ' +
-                              message.place,
+                              message.leaderName,
                           maxLines: 2,
                           overflow: TextOverflow.ellipsis,
                         ),
                         trailing: Icon(Icons.keyboard_arrow_right),
-                        onTap: () => _onButtonPressed(lessons[index]),
+                        onTap: () => _onButtonPressed(message),
                       );
                     },
                   ));
@@ -161,10 +158,9 @@ class _WeekPlanScreenState extends State<WeekPlanScreen> {
         onTap: (int index) {
           setState(() {
             bottomNavBarIndex = index;
-            // dayNumber = (index + 1).toDouble();
-            // lessons = ctrl.getLessonsForDay(dayNumber);
-            lessons = ctrl.getLessonsForDay();
-
+            dayNumber = index + 1;
+            lessons = ctrl.getLessonsForDay(dayNumber);
+ 
             // selectedDay = (days[index])
             // zmaiana dla selected
           });
