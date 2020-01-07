@@ -160,9 +160,6 @@ class _WeekPlanScreenState extends State<WeekPlanScreen> {
             bottomNavBarIndex = index;
             dayNumber = index + 1;
             lessons = ctrl.getLessonsForDay(dayNumber);
- 
-            // selectedDay = (days[index])
-            // zmaiana dla selected
           });
         },
         items: [

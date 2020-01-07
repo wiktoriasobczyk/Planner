@@ -24,7 +24,6 @@ class WeekScreenController {
           leaderName: result.data['getEventsForDay'][i]['leaderName'],
         ));
       }
-      print('twoja stara' + lessons[0].name);
     }
     print(result.exception);
     return lessons;
