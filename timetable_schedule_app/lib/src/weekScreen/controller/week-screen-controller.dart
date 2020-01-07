@@ -38,4 +38,9 @@ class WeekScreenController {
     }
     return hours + '.' + minutes;
   }
+
+  static String dateFormatter(String reveicedDate) {
+    List<String> date = reveicedDate.split('T')[0].split('-');
+    return date[2] + '.' + date[1] + '.' + date[0];
+  }
 }

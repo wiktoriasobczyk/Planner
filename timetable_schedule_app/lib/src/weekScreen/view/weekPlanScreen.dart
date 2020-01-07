@@ -51,10 +51,10 @@ class _WeekPlanScreenState extends State<WeekPlanScreen> {
               Text('Szczegóły'),
               myRowDataIcon(null, 'Nazwa zajęć: '+message.name),
               myRowDataIcon(
-                  Icon(FontAwesomeIcons.timesCircle), WeekScreenController.timeFormatter(message.startDateTime) + ' - ' + WeekScreenController.timeFormatter(message.finishDateTime)),
-              myRowDataIcon(Icon(FontAwesomeIcons.calendar), message.finishDateTime),
-              myRowDataIcon(Icon(FontAwesomeIcons.peopleCarry), message.place),
-              myRowDataIcon(null,message.leaderName),
+                  Icon(FontAwesomeIcons.clock), WeekScreenController.timeFormatter(message.startDateTime) + ' - ' + WeekScreenController.timeFormatter(message.finishDateTime)),
+              myRowDataIcon(Icon(FontAwesomeIcons.calendarDay), WeekScreenController.dateFormatter(message.finishDateTime)),
+              myRowDataIcon(Icon(FontAwesomeIcons.user),message.leaderName),
+              myRowDataIcon(Icon(FontAwesomeIcons.mapMarkerAlt), message.place),
               RaisedButton(
                   child: Text('Edytuj'),
                   textColor: Colors.white,
@@ -62,7 +62,7 @@ class _WeekPlanScreenState extends State<WeekPlanScreen> {
                   shape: RoundedRectangleBorder(
                       borderRadius: new BorderRadius.circular(18.0),
                       side: BorderSide(color: Colors.green)),
-                  onPressed: () => {print('test')}),
+                  onPressed: () => {print('mockup edition')}),
             ],
           );
         });
@@ -132,7 +132,7 @@ class _WeekPlanScreenState extends State<WeekPlanScreen> {
                     itemBuilder: (BuildContext context, int index) {
                       Lesson message = lessons[index];
                       return ListTile(
-                        title: Text(message.startDateTime +' - ' +message.finishDateTime + message.name),
+                        title: Text(WeekScreenController.timeFormatter(message.startDateTime) +' - ' + WeekScreenController.timeFormatter(message.finishDateTime) + '        ' +message.name),
                         isThreeLine: true,
                         subtitle: Text(
                           'prowadzący: ' +
