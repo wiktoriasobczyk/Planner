@@ -24,6 +24,16 @@ class _AddLessonScreenState extends State<AddLessonScreen> {
   DateTime endingHour;
   String teacher;
   String place;
+  Future delayedSnakeBar(context, String message) async {
+    await Future.delayed(Duration(seconds: 1));
+    Scaffold.of(context).showSnackBar(SnackBar(content: Text(message)));
+  }
+
+  @override
+  void initState() {
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -119,20 +129,20 @@ class _AddLessonScreenState extends State<AddLessonScreen> {
             ListTile(
               title: GreenButton(
                 labelText: 'DODAJ',
-                onPressed: () {
+                onPressed: () async {
                   if (_formKey.currentState.validate()) {
                     _formKey.currentState.save();
-                    print(this.name);
-                    print(this.place);
-                    print(this.beginHour.toString());
-                    print(this.teacher);
-                    print(this.date);
-                    FutureBuilder<String>(
-                        future: addLessonCtrl.addLessonCallout(
-                            name, date, beginHour, endingHour, teacher, place),
-                        builder: (context, snapshot) {
-                          SnackBar(content: Text('yeeey snackbar'));
-                        });
+                    String addingResult = await addLessonCtrl.addLessonCallout(
+                        name, date, beginHour, endingHour, teacher, place);
+                    if (addingResult.contains('exception')) {
+                      _key.currentState.showSnackBar(SnackBar(
+                          content: Text(addingResult),
+                          backgroundColor: Colors.red));
+                    } else {
+                      _key.currentState.showSnackBar(SnackBar(
+                          content: Text(addingResult),
+                          backgroundColor: Colors.green));
+                    }
                   }
                 },
               ),
