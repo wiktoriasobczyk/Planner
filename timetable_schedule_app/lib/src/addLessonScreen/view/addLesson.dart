@@ -91,21 +91,20 @@ class _AddLessonScreenState extends State<AddLessonScreen> {
               },
             ),
             Divider(),
-            if(operatingSystem !='android')
-            DateField(
-              labelText: 'Data zajęć',
-              validator: (DateTime value) {
-                if (value == null) {
-                  return 'Wpisz date wydarzenia';
-                }
-                return null;
-              },
-              onSaved: (DateTime value) {
-                this.date = value;
-              },
-            ),
-            if(operatingSystem =='android')
-            DateFormiOS(),
+            if (operatingSystem == 'android')
+              DateField(
+                labelText: 'Data zajęć',
+                validator: (DateTime value) {
+                  if (value == null) {
+                    return 'Wpisz date wydarzenia';
+                  }
+                  return null;
+                },
+                onSaved: (DateTime value) {
+                  this.date = value;
+                },
+              ),
+            if (operatingSystem != 'android') DateFormiOS(),
             Divider(),
             ListTile(
                 title: SimpleTextForm(
@@ -142,6 +141,7 @@ class _AddLessonScreenState extends State<AddLessonScreen> {
                     _formKey.currentState.save();
                     String addingResult = await addLessonCtrl.addLessonCallout(
                         name, date, beginHour, endingHour, teacher, place);
+                    print(date);
                     if (addingResult.contains('exception')) {
                       _key.currentState.showSnackBar(SnackBar(
                           content: Text(addingResult),
