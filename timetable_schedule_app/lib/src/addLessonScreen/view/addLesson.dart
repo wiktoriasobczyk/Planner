@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:timetable_schedule_app/src/addLessonScreen/model/lesson.dart';
+import 'package:timetable_schedule_app/src/addLessonScreen/controller/add-lesson-controller.dart';
 import 'package:timetable_schedule_app/src/addLessonScreen/view.dart';
 import 'package:timetable_schedule_app/src/addLessonScreen/view/simple_form_field.dart';
 import 'package:timetable_schedule_app/src/addLessonScreen/view/time_form_field.dart';
@@ -16,10 +16,28 @@ class AddLessonScreen extends StatefulWidget {
 class _AddLessonScreenState extends State<AddLessonScreen> {
   final timeFormat = DateFormat("HH:mm");
   final _formKey = GlobalKey<FormState>();
-  Lesson lesson = new Lesson();
+  var _key = new GlobalKey<ScaffoldState>();
+  AddLessonCtrl addLessonCtrl = new AddLessonCtrl();
+  String name;
+  DateTime date;
+  DateTime beginHour;
+  DateTime endingHour;
+  String teacher;
+  String place;
+  Future delayedSnakeBar(context, String message) async {
+    await Future.delayed(Duration(seconds: 1));
+    Scaffold.of(context).showSnackBar(SnackBar(content: Text(message)));
+  }
+
+  @override
+  void initState() {
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      key: _key,
       appBar: AppBar(
         title: Text("Dodaj zajęcia"),
       ),
@@ -29,7 +47,7 @@ class _AddLessonScreenState extends State<AddLessonScreen> {
           key: _formKey,
           child: Column(children: <Widget>[
             ListTile(
-              title: SimpleTextForm(
+                title: SimpleTextForm(
               labelText: 'Nazwa',
               validator: (String value) {
                 if (value.isEmpty) {
@@ -38,7 +56,7 @@ class _AddLessonScreenState extends State<AddLessonScreen> {
                 return null;
               },
               onSaved: (String value) {
-                lesson.name = value;
+                this.name = value;
               },
             )),
             Divider(),
@@ -51,7 +69,7 @@ class _AddLessonScreenState extends State<AddLessonScreen> {
                 return null;
               },
               onSaved: (DateTime value) {
-                lesson.beginHour = value;
+                this.beginHour = value;
               },
             ),
             Divider(),
@@ -64,7 +82,7 @@ class _AddLessonScreenState extends State<AddLessonScreen> {
                 return null;
               },
               onSaved: (DateTime value) {
-                lesson.endingHour = value;
+                this.endingHour = value;
               },
             ),
             Divider(),
@@ -77,7 +95,7 @@ class _AddLessonScreenState extends State<AddLessonScreen> {
                 return null;
               },
               onSaved: (DateTime value) {
-                lesson.date = value;
+                this.date = value;
               },
             ),
             Divider(),
@@ -91,10 +109,10 @@ class _AddLessonScreenState extends State<AddLessonScreen> {
                 return null;
               },
               onSaved: (String value) {
-                lesson.teacher = value;
+                this.teacher = value;
               },
             )),
-                      Divider(),
+            Divider(),
             ListTile(
                 title: SimpleTextForm(
               labelText: 'Miejsce',
@@ -105,20 +123,26 @@ class _AddLessonScreenState extends State<AddLessonScreen> {
                 return null;
               },
               onSaved: (String value) {
-                lesson.place = value;
+                this.place = value;
               },
             )),
             ListTile(
               title: GreenButton(
                 labelText: 'DODAJ',
-                onPressed: () {
+                onPressed: () async {
                   if (_formKey.currentState.validate()) {
                     _formKey.currentState.save();
-                    print(this.lesson.name);
-                    print(this.lesson.place);
-                    print(this.lesson.beginHour);
-                    print(this.lesson.teacher);
-                    print(this.lesson.date);
+                    String addingResult = await addLessonCtrl.addLessonCallout(
+                        name, date, beginHour, endingHour, teacher, place);
+                    if (addingResult.contains('exception')) {
+                      _key.currentState.showSnackBar(SnackBar(
+                          content: Text(addingResult),
+                          backgroundColor: Colors.red));
+                    } else {
+                      _key.currentState.showSnackBar(SnackBar(
+                          content: Text(addingResult),
+                          backgroundColor: Colors.green));
+                    }
                   }
                 },
               ),

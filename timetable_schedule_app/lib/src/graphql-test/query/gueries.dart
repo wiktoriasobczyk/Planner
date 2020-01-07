@@ -31,6 +31,15 @@ class QueriesMutations {
       }    
      """;
   }
+  String addLesson(String name, String startDateTime, String finishDateTime, String place, String leaderName ) {
+    return """
+      mutation addEvent{
+          addEvent(eventData:{name: "$name", startDateTime: "$startDateTime",finishDateTime: "$finishDateTime",place: "$place",leaderName: "$leaderName"}){
+            leaderName
+          }
+      }    
+     """;
+  }
 
   String test() {
     return """
