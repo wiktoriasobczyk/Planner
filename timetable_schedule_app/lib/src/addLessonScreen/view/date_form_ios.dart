@@ -5,6 +5,8 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:intl/intl.dart';
 
 class DateFormiOS extends StatefulWidget {
+  Function(DateTime value) notifyParent;
+  DateFormiOS({Key key, @required this.notifyParent}) : super(key: key);
   @override
   _DateFormiOSState createState() => _DateFormiOSState();
 }
@@ -12,7 +14,6 @@ class DateFormiOS extends StatefulWidget {
 class _DateFormiOSState extends State<DateFormiOS> {
   final format = DateFormat("yyyy-MM-dd");
   DateTime value;
-
   @override
   void initState() {
     super.initState();
@@ -67,14 +68,19 @@ class _DateFormiOSState extends State<DateFormiOS> {
           await showCupertinoModalPopup(
               context: context,
               builder: (context) {
-                return CupertinoDatePicker(
-                  onDateTimeChanged: (DateTime date) {
-                    value = date;
-                  },
+                return Container(
+                  height: MediaQuery.of(context).copyWith().size.height / 3,
+                  child: CupertinoDatePicker(
+                    onDateTimeChanged: (DateTime date) {
+                      value = date;
+                    },
+                    mode: CupertinoDatePickerMode.date,
+                  ),
                 );
               });
           setState(() {
             value = value;
+            widget.notifyParent(value);
           });
           return value;
         },

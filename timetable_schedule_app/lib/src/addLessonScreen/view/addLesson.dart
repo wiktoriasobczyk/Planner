@@ -33,6 +33,13 @@ class _AddLessonScreenState extends State<AddLessonScreen> {
     Scaffold.of(context).showSnackBar(SnackBar(content: Text(message)));
   }
 
+    // set date comes from child component (iosDatepicker)
+  refresh(DateTime value) {
+    setState(() {
+      date = value;
+    });
+  }
+
   @override
   void initState() {
     super.initState();
@@ -91,7 +98,7 @@ class _AddLessonScreenState extends State<AddLessonScreen> {
               },
             ),
             Divider(),
-            if (operatingSystem == 'android')
+            if (operatingSystem != 'android')
               DateField(
                 labelText: 'Data zajęć',
                 validator: (DateTime value) {
@@ -104,7 +111,8 @@ class _AddLessonScreenState extends State<AddLessonScreen> {
                   this.date = value;
                 },
               ),
-            if (operatingSystem != 'android') DateFormiOS(),
+            if (operatingSystem == 'android')
+              DateFormiOS(notifyParent: refresh),
             Divider(),
             ListTile(
                 title: SimpleTextForm(
@@ -141,7 +149,6 @@ class _AddLessonScreenState extends State<AddLessonScreen> {
                     _formKey.currentState.save();
                     String addingResult = await addLessonCtrl.addLessonCallout(
                         name, date, beginHour, endingHour, teacher, place);
-                    print(date);
                     if (addingResult.contains('exception')) {
                       _key.currentState.showSnackBar(SnackBar(
                           content: Text(addingResult),
