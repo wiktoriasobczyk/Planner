@@ -1,10 +1,10 @@
+import 'dart:ffi';
+
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:timetable_schedule_app/src/common/green_button.dart';
 import 'package:timetable_schedule_app/src/drawer/view.dart';
-import 'package:timetable_schedule_app/src/graphql-test/controller/country-controller.dart';
-import 'package:timetable_schedule_app/src/graphql-test/model/country.dart';
-import 'package:timetable_schedule_app/src/weekScreen/view.dart';
+import 'package:timetable_schedule_app/src/weekScreen/controller/week-screen-controller.dart';
+import 'package:timetable_schedule_app/src/weekScreen/model/lesson-model.dart';
 
 class WeekPlanScreen extends StatefulWidget {
   @override
@@ -12,8 +12,9 @@ class WeekPlanScreen extends StatefulWidget {
 }
 
 class _WeekPlanScreenState extends State<WeekPlanScreen> {
-  CountryController ctrl = new CountryController();
-  Future<List<Country>> countries;
+  WeekScreenController ctrl = new WeekScreenController();
+  double dayNumber;
+  Future<List<Lesson>> lessons;
   final days = ['Pn', 'Wt', 'Śr', 'Czw', 'Pt', 'Sb', 'Nd'];
 
   int bottomNavBarIndex;
@@ -44,9 +45,11 @@ class _WeekPlanScreenState extends State<WeekPlanScreen> {
   @override
   void initState() {
     super.initState();
+    dayNumber = DateTime.now().day.toDouble();
     selectedDay = days[0];
     bottomNavBarIndex = 0;
-    countries = ctrl.getCountriesList();
+    // lessons = ctrl.getLessonsForDay(dayNumber);
+    lessons = ctrl.getLessonsForDay();
   }
 
   ListTile myRowDataIcon(Icon icon, String rowVal) {
@@ -59,7 +62,7 @@ class _WeekPlanScreenState extends State<WeekPlanScreen> {
     );
   }
 
-  _onButtonPressed(Country mesage) {
+  _onButtonPressed(Lesson message) {
     print('xd');
     showModalBottomSheet(
         context: context,
@@ -67,12 +70,13 @@ class _WeekPlanScreenState extends State<WeekPlanScreen> {
           return Column(
             children: <Widget>[
               Text('Szczegóły'),
-              myRowDataIcon(null, mesage.name),
+              myRowDataIcon(null, message.name),
               myRowDataIcon(
                   Icon(FontAwesomeIcons.timesCircle), '12.30 - 14.30'),
               myRowDataIcon(Icon(FontAwesomeIcons.calendar), '12.08.2020'),
-              myRowDataIcon(Icon(FontAwesomeIcons.peopleCarry), mesage.nativeLang),
-              myRowDataIcon(null, 'Details: x1, x2  '+ mesage.phone),
+              myRowDataIcon(
+                  Icon(FontAwesomeIcons.peopleCarry), message.place),
+              myRowDataIcon(null, 'Details: x1, x2  ' + message.leaderName),
               RaisedButton(
                   child: Text('Edytuj'),
                   textColor: Colors.white,
@@ -133,7 +137,7 @@ class _WeekPlanScreenState extends State<WeekPlanScreen> {
                 ]))),
         SliverFillRemaining(
           child: FutureBuilder(
-            future: countries,
+            future: lessons,
             builder: (BuildContext context, AsyncSnapshot snapshot) {
               switch (snapshot.connectionState) {
                 case ConnectionState.none:
@@ -143,26 +147,26 @@ class _WeekPlanScreenState extends State<WeekPlanScreen> {
                 case ConnectionState.done:
                   if (snapshot.hasError)
                     return Text("There was an error: ${snapshot.error}");
-                  var countries = snapshot.data;
+                  var lessons = snapshot.data;
                   return Material(
                       child: ListView.separated(
-                    itemCount: countries.length,
+                    itemCount: lessons.length,
                     separatorBuilder: (context, index) => Divider(),
                     itemBuilder: (BuildContext context, int index) {
-                      Country message = countries[index];
+                      Lesson message = lessons[index];
                       return ListTile(
                         title: Text('12:30 - 15:00   ' + message.name),
                         isThreeLine: true,
                         subtitle: Text(
                           'prowadzący: ' +
-                              message.nativeLang +
+                              message.leaderName +
                               '\nmiejsce: ' +
-                              message.code,
+                              message.place,
                           maxLines: 2,
                           overflow: TextOverflow.ellipsis,
                         ),
                         trailing: Icon(Icons.keyboard_arrow_right),
-                        onTap: () => _onButtonPressed(countries[index]),
+                        onTap: () => _onButtonPressed(lessons[index]),
                       );
                     },
                   ));
@@ -179,6 +183,10 @@ class _WeekPlanScreenState extends State<WeekPlanScreen> {
         onTap: (int index) {
           setState(() {
             bottomNavBarIndex = index;
+            // dayNumber = (index + 1).toDouble();
+            // lessons = ctrl.getLessonsForDay(dayNumber);
+            lessons = ctrl.getLessonsForDay();
+
             // selectedDay = (days[index])
             // zmaiana dla selected
           });

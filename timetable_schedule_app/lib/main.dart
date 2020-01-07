@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:timetable_schedule_app/src/graphql/graphql-config.dart';
 import 'package:timetable_schedule_app/src/home/view.dart';
-// import 'package:timetable_schedule_app/src/graphqlTest/view.dart';
 
 void main() => runApp(MyApp());
 

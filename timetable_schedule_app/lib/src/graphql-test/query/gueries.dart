@@ -1,3 +1,5 @@
+import 'dart:ffi';
+
 class QueriesMutations {
   String getContinets() {
     return r"""
@@ -8,6 +10,19 @@ class QueriesMutations {
           phone,
           currency,
           native
+        }
+      }
+      """;
+  }
+  // String getLessonsByDay(Float dayNumber) {
+  String getLessonsByDay() {
+    return """
+    query getEvents{
+        getEventsForDay(dayNumber: 12){
+          name
+          startDateTime
+          finishDateTime
+          leaderName
         }
       }
       """;
