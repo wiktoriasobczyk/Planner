@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:timetable_schedule_app/src/addLessonScreen/controller/add-lesson-controller.dart';
 import 'package:timetable_schedule_app/src/addLessonScreen/view.dart';
@@ -7,6 +9,8 @@ import 'package:timetable_schedule_app/src/common/green_button.dart';
 import 'package:timetable_schedule_app/src/drawer/view/drawerApp.dart';
 
 import 'package:intl/intl.dart';
+
+import 'date_form_ios.dart';
 
 class AddLessonScreen extends StatefulWidget {
   @override
@@ -36,6 +40,7 @@ class _AddLessonScreenState extends State<AddLessonScreen> {
 
   @override
   Widget build(BuildContext context) {
+    var operatingSystem = Platform.operatingSystem;
     return Scaffold(
       key: _key,
       appBar: AppBar(
@@ -86,18 +91,20 @@ class _AddLessonScreenState extends State<AddLessonScreen> {
               },
             ),
             Divider(),
-            DateField(
-              labelText: 'Data zajęć',
-              validator: (DateTime value) {
-                if (value == null) {
-                  return 'Wpisz date wydarzenia';
-                }
-                return null;
-              },
-              onSaved: (DateTime value) {
-                this.date = value;
-              },
-            ),
+            if (operatingSystem == 'android')
+              DateField(
+                labelText: 'Data zajęć',
+                validator: (DateTime value) {
+                  if (value == null) {
+                    return 'Wpisz date wydarzenia';
+                  }
+                  return null;
+                },
+                onSaved: (DateTime value) {
+                  this.date = value;
+                },
+              ),
+            if (operatingSystem != 'android') DateFormiOS(),
             Divider(),
             ListTile(
                 title: SimpleTextForm(
@@ -134,6 +141,7 @@ class _AddLessonScreenState extends State<AddLessonScreen> {
                     _formKey.currentState.save();
                     String addingResult = await addLessonCtrl.addLessonCallout(
                         name, date, beginHour, endingHour, teacher, place);
+                    print(date);
                     if (addingResult.contains('exception')) {
                       _key.currentState.showSnackBar(SnackBar(
                           content: Text(addingResult),

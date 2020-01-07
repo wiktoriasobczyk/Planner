@@ -1,5 +1,3 @@
-import 'dart:ffi';
-
 class QueriesMutations {
   String getContinets() {
     return r"""
