@@ -10,6 +10,8 @@ import 'package:timetable_schedule_app/src/drawer/view/drawerApp.dart';
 
 import 'package:intl/intl.dart';
 
+import 'date_form_ios.dart';
+
 class AddLessonScreen extends StatefulWidget {
   @override
   _AddLessonScreenState createState() => _AddLessonScreenState();
@@ -89,7 +91,7 @@ class _AddLessonScreenState extends State<AddLessonScreen> {
               },
             ),
             Divider(),
-            if(operatingSystem=='android')
+            if(operatingSystem !='android')
             DateField(
               labelText: 'Data zajęć',
               validator: (DateTime value) {
@@ -102,6 +104,8 @@ class _AddLessonScreenState extends State<AddLessonScreen> {
                 this.date = value;
               },
             ),
+            if(operatingSystem =='android')
+            DateFormiOS(),
             Divider(),
             ListTile(
                 title: SimpleTextForm(
