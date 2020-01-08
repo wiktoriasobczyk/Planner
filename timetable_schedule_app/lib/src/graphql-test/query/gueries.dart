@@ -12,10 +12,11 @@ class QueriesMutations {
       }
       """;
   }
+
   String getLessonsByDay(int dayNumber) {
     return """
     query getEvents{
-        getEventsForDay(dayOfWeek: {dayNumber: $dayNumber}){
+        getEventsForDay(planId: "1", dayOfWeek: {dayNumber: $dayNumber}){
           name
           startDateTime
           finishDateTime
@@ -35,6 +36,7 @@ class QueriesMutations {
       }    
      """;
   }
+
   String loginMutation(String email, String password) {
     return """
       mutation register{
@@ -44,7 +46,9 @@ class QueriesMutations {
       }    
      """;
   }
-  String addLesson(String name, String startDateTime, String finishDateTime, String place, String leaderName ) {
+
+  String addLesson(String name, String startDateTime, String finishDateTime,
+      String place, String leaderName) {
     return """
       mutation addEvent{
           addEvent(eventData:{name: "$name", startDateTime: "$startDateTime",finishDateTime: "$finishDateTime",place: "$place",leaderName: "$leaderName"}){
