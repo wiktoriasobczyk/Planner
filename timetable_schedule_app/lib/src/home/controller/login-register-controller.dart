@@ -3,6 +3,26 @@ import 'package:timetable_schedule_app/src/graphql-test/query/gueries.dart';
 import 'package:timetable_schedule_app/src/graphql/graphql-config.dart';
 
 class LogRegController {
+  static String emailValidator(String input) {
+    if (input.isEmpty) {
+      return 'Email nie może być pusty';
+    }
+    if (!input.contains('@')) {
+      return "Email musi zawierać @";
+    }
+    return null;
+  }
+
+  static String passwordValidator(String input) {
+    if (input.isEmpty) {
+      return 'Hasło nie może być puste';
+    }
+    if (input.length < 6) {
+      return 'Hasło powinno zawierać minimum 6 znaków';
+    }
+    return null;
+  }
+
   Future<String> authUser(String email, String password, bool isLogin) async {
     GraphQLConfiguration graphQLConfig = new GraphQLConfiguration();
     GraphQLClient _client = graphQLConfig.clientToQuery();
