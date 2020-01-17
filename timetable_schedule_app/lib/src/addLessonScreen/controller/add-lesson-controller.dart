@@ -17,8 +17,8 @@ class AddLessonCtrl {
         documentNode: gql(
       queryMutation.addLesson(
           name,
-          this._dateparserDay(date) + this._dateparserTime(beginHour),
-          this._dateparserDay(date) + this._dateparserTime(endingHour),
+          date.toIso8601String(),
+          date.toIso8601String(),
           place,
           teacher),
     )));

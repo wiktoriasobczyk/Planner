@@ -9,17 +9,16 @@ const users = const {
 };
 
 class LoginScreen extends StatelessWidget {
-
   Duration get loginTime => Duration(milliseconds: 2250);
   Future<String> _logAuthUser(LoginData data) {
     print('Name: ${data.name}, Password: ${data.password}');
     LogRegController ctrl = new LogRegController();
-    return ctrl.authUser(data.name, data.password,true);
+    return ctrl.authUser(data.name, data.password, true);
   }
 
   Future<String> _regAuthUser(LoginData data) {
     LogRegController ctrl = new LogRegController();
-  return ctrl.authUser(data.name, data.password,false);
+    return ctrl.authUser(data.name, data.password, false);
   }
 
   Future<String> _recoverPassword(String name) {
@@ -64,7 +63,7 @@ class LoginScreen extends StatelessWidget {
       showDebugButtons: false,
       onRecoverPassword: _recoverPassword,
       messages: LoginMessages(
-        usernameHint: 'Nazwa użytkownika',
+        usernameHint: 'Email',
         passwordHint: 'Hasło',
         confirmPasswordHint: 'Wpisz ponownie hasło',
         loginButton: 'ZALOGUJ SIĘ',

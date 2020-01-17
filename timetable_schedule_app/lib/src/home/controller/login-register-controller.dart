@@ -15,7 +15,7 @@ class LogRegController {
         queryMutation.loginMutation(email, password),
       )));
       if (result.hasException) {
-        print(result.exception);
+        print(result);
         return 'Nie udało się zalogować';
       } else {
         String token = result.data['login']['accessToken'];
