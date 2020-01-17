@@ -16,7 +16,7 @@ class QueriesMutations {
   String getLessonsByDay(int dayNumber) {
     return """
     query getEvents{
-        getEventsForDay(planId: "1", dayOfWeek: {dayNumber: $dayNumber}){
+        getEventsForDay(dayOfWeek: {dayNumber: $dayNumber}){
           name
           startDateTime
           finishDateTime
