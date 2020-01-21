@@ -4,6 +4,9 @@ import 'package:timetable_schedule_app/src/addLessonScreen/view/addLesson.dart';
 import 'package:timetable_schedule_app/src/graphql/graphql-config.dart';
 import 'package:timetable_schedule_app/src/home/view.dart';
 import 'package:timetable_schedule_app/src/weekScreen/view/weekPlanScreen.dart';
+import 'package:timetable_schedule_app/src/findOrganization/view/findOrganizationScreen.dart';
+
+
 
 class DrawerApp extends StatefulWidget {
   @override
@@ -17,7 +20,7 @@ class _DrawerState extends State<DrawerApp> {
       child: Column(
         children: <Widget>[
           UserAccountsDrawerHeader(
-            accountEmail: Text("w@w.pl"),
+            accountEmail: Text("wiktoriasobczyk5@gmail.com"),
             accountName: Text("Wiktoria Sobczyk"),
             currentAccountPicture: CircleAvatar(
               backgroundImage: NetworkImage(
@@ -39,6 +42,15 @@ class _DrawerState extends State<DrawerApp> {
           ListTile(
             leading: Icon(FontAwesomeIcons.search),
             title: Text("Wyszukaj organizacje"),
+            onTap: () {
+              Navigator.pop(context);
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (BuildContext context) => FindOrganizationScreen(),
+                ),
+              );
+            },
           ),
           ListTile(
             leading: Icon(FontAwesomeIcons.calendarPlus),
