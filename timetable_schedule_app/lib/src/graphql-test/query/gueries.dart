@@ -68,4 +68,14 @@ class QueriesMutations {
       }
     """;
   }
+
+  String findByCode(String code,) {
+    return """
+      query findByCode{
+        findByCode(code:"$code"){
+          name
+        }
+      }
+    """;
+  }
 }
