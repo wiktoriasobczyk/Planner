@@ -178,12 +178,12 @@ class _WeekPlanScreenState extends State<WeekPlanScreen> {
           new BottomNavigationBarItem(
               icon: Icon(FontAwesomeIcons.calendar),
               title: Text(days[4], style: TextStyle(color: Colors.grey))),
-          new BottomNavigationBarItem(
-              icon: Icon(FontAwesomeIcons.calendar),
-              title: Text(days[5], style: TextStyle(color: Colors.grey))),
-          new BottomNavigationBarItem(
-              icon: Icon(FontAwesomeIcons.calendar),
-              title: Text(days[6], style: TextStyle(color: Colors.grey))),
+          // new BottomNavigationBarItem(
+          //     icon: Icon(FontAwesomeIcons.calendar),
+          //     title: Text(days[5], style: TextStyle(color: Colors.grey))),
+          // new BottomNavigationBarItem(
+          //     icon: Icon(FontAwesomeIcons.calendar),
+          //     title: Text(days[6], style: TextStyle(color: Colors.grey))),
         ],
       ),
     );
