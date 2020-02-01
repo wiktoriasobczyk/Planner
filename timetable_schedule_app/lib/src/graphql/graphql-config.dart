@@ -4,8 +4,8 @@ import "package:graphql_flutter/graphql_flutter.dart";
 class GraphQLConfiguration {
   static Link link = null;
   static HttpLink httpLink = HttpLink(
-    // uri: "https://murmuring-tundra-28589.herokuapp.com/graphql",
-    uri: "http://10.0.2.2:3001/graphql",
+    uri: "https://murmuring-tundra-28589.herokuapp.com/graphql",
+    // uri: "http://10.0.2.2:3001/graphql",
   );
 
   static void setToken(String token) {

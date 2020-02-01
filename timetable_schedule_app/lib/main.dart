@@ -16,7 +16,7 @@ class MyApp extends StatelessWidget {
         title: 'Zarządzanie planem',
         theme: ThemeData(
           primarySwatch: Colors.green,
-        ),
+        ),  
         home: LoginScreen(),
       ),
     );

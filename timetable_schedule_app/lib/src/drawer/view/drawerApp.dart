@@ -17,7 +17,7 @@ class _DrawerState extends State<DrawerApp> {
       child: Column(
         children: <Widget>[
           UserAccountsDrawerHeader(
-            accountEmail: Text("w@w.pl"),
+            accountEmail: Text("wiktoriasobczyk10@gmail.com"),
             accountName: Text("Wiktoria Sobczyk"),
             currentAccountPicture: CircleAvatar(
               backgroundImage: NetworkImage(
