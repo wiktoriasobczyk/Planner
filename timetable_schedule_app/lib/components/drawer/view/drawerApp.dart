@@ -1,0 +1,92 @@
+import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:timetable_schedule_app/components/addLessonScreen/view/addLesson.dart';
+import 'package:timetable_schedule_app/services/graphql-config.dart';
+import 'package:timetable_schedule_app/components/homeScreen/view.dart';
+import 'package:timetable_schedule_app/components/weekScreen/view/weekPlanScreen.dart';
+import 'package:timetable_schedule_app/components/findOrganization/view/findOrganizationScreen.dart';
+
+
+
+class DrawerApp extends StatefulWidget {
+  @override
+  _DrawerState createState() => _DrawerState();
+}
+
+class _DrawerState extends State<DrawerApp> {
+  @override
+  Widget build(BuildContext context) {
+    return Drawer(
+      child: Column(
+        children: <Widget>[
+          UserAccountsDrawerHeader(
+            accountEmail: Text("wiktoriasobczyk5@gmail.com"),
+            accountName: Text("Wiktoria Sobczyk"),
+            currentAccountPicture: CircleAvatar(
+              backgroundImage: NetworkImage(
+                  "https://icons-for-free.com/iconfiles/png/512/female+person+user+woman+young+icon-1320196266256009072.png"),
+            ),
+          ),
+          ListTile(
+            leading: Icon(FontAwesomeIcons.clipboardList),
+            title: Text("Twój plan"),
+            onTap: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (BuildContext context) => WeekPlanScreen(),
+                ),
+              );
+            },
+          ),
+          ListTile(
+            leading: Icon(FontAwesomeIcons.search),
+            title: Text("Wyszukaj organizacje"),
+            onTap: () {
+              Navigator.pop(context);
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (BuildContext context) => FindOrganizationScreen(),
+                ),
+              );
+            },
+          ),
+          ListTile(
+            leading: Icon(FontAwesomeIcons.calendarPlus),
+            title: Text("Dodaj zajęcia"),
+            onTap: () {
+              Navigator.pop(context);
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (BuildContext context) => AddLessonScreen(),
+                ),
+              );
+            },
+          ),
+          Divider(),
+          Expanded(
+            child: Align(
+              alignment: FractionalOffset.bottomCenter,
+              child: ListTile(
+                leading: Icon(FontAwesomeIcons.signOutAlt),
+                title: Text("Wyloguj się"),
+                onTap: () {
+                  GraphQLConfiguration.removeToken();
+                  Navigator.pop(context);
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (BuildContext context) => LoginScreen(),
+                    ),
+                  );
+                },
+              ),
+            ),
+          )
+        ],
+      ),
+    );
+  }
+}

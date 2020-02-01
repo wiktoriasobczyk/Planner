@@ -1,0 +1,1 @@
+export 'package:timetable_schedule_app/components/findOrganization/controller/find-organization-controller.dart';
