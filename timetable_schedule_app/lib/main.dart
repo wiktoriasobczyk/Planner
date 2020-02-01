@@ -13,10 +13,11 @@ class MyApp extends StatelessWidget {
     return GraphQLProvider(
       client: graphQLConfig.client,
       child: MaterialApp(
+        debugShowCheckedModeBanner: false,
         title: 'Zarządzanie planem',
         theme: ThemeData(
           primarySwatch: Colors.green,
-        ),  
+        ),
         home: LoginScreen(),
       ),
     );

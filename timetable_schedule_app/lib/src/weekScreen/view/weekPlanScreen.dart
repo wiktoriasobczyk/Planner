@@ -77,7 +77,7 @@ class _WeekPlanScreenState extends State<WeekPlanScreen> {
           expandedHeight: 10.0,
           pinned: true,
           flexibleSpace: FlexibleSpaceBar(
-            title: Text('Plan tygodnia (TYTUŁ)'),
+            title: Text('Plan tygodnia '),
           ),
         ),
         SliverToBoxAdapter(
