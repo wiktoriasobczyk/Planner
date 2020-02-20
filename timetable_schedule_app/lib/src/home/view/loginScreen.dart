@@ -39,27 +39,14 @@ class LoginScreen extends StatelessWidget {
       onSignup: _regAuthUser,
       onSubmitAnimationCompleted: () {
         Navigator.push(
-          context,
+          context,  
           MaterialPageRoute(
             builder: (BuildContext context) => WeekPlanScreen(),
           ),
         );
       },
-      emailValidator: (value) {
-        if (!value.contains('@')) {
-          return "Email musi zawierać '@''";
-        }
-        return null;
-      },
-      passwordValidator: (value) {
-        if (value.isEmpty) {
-          return 'Hasło nie może być puste';
-        }
-        if (value.length < 6) {
-          return 'Hasło powinno zawierać minimum 6 znaków';
-        }
-        return null;
-      },
+      emailValidator: LogRegController.emailValidator,
+      passwordValidator: LogRegController.passwordValidator,
       showDebugButtons: false,
       onRecoverPassword: _recoverPassword,
       messages: LoginMessages(
