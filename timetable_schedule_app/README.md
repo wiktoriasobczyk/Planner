@@ -1,6 +1,9 @@
-# timetable_schedule_app
-
-A new Flutter project.
+# Planner
+This is an application for schedules management.
+* login / register
+* add lesson
+* week screen
+* [WIP] subscribe organization plan
 
 ## Getting Started
 
